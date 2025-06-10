@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
+    "module": "nodenext",         // 或 "ES2020"
+    "target": "ES2021",
+    "moduleResolution": "nodenext",
     "outDir": "dist",
     "rootDir": "src",
-    "module": "commonjs",
-    "target": "es2021",
     "strict": true,
     "esModuleInterop": true
   },

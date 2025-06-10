@@ -1,2 +1,5 @@
+import { lexer } from "./lexer/lexer.js";
 
-console.log("Hello, world!");
+const result = lexer.tokenize("IF THEN VAR x := 10; END_VAR END_IF");
+
+console.log(result.tokens);

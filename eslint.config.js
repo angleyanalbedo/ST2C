@@ -1,7 +1,7 @@
 /** @type {import("eslint").Linter.FlatConfig[]} */
-module.exports = [
+export default [
   {
-    files: ["**/*.js", "**/*.ts"],
+    files: ["src/*.ts"],
     languageOptions: {
       ecmaVersion: 2021,
       sourceType: "module",

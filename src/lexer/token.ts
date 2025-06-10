@@ -26,10 +26,12 @@ export const Mult = createToken({ name: "Mult", pattern: /\*/ });
 export const Div = createToken({ name: "Div", pattern: /\// });
 export const Eq = createToken({ name: "Eq", pattern: /=/ });
 export const Neq = createToken({ name: "Neq", pattern: /<>/ });
-export const Lt = createToken({ name: "Lt", pattern: /</ });
-export const Gt = createToken({ name: "Gt", pattern: />/ });
 export const Leq = createToken({ name: "Leq", pattern: /<=/ });
+export const Lt = createToken({ name: "Lt", pattern: /</ });
 export const Geq = createToken({ name: "Geq", pattern: />=/ });
+export const Gt = createToken({ name: "Gt", pattern: />/ });
+
+
 
 // 标识符和常量
 export const Identifier = createToken({ name: "Identifier", pattern: /[a-zA-Z_][a-zA-Z0-9_]*/ });
@@ -57,7 +59,7 @@ export const allTokens = [
   FOR, TO, DO, END_FOR, WHILE, END_WHILE,
   REPEAT, UNTIL, END_REPEAT, RETURN,
   Assign, Plus, Minus, Mult, Div,
-  Eq, Neq, Lt, Gt, Leq, Geq,
+  Eq, Neq, Leq, Geq, Lt, Gt,
   LParen, RParen, Colon, Semicolon, Comma,
   Real, Integer, Identifier
 ];
