@@ -1,0 +1,32 @@
+{
+  "name": "st2c",
+  "version": "1.0.0",
+  "description": "convert st code to c code",
+  "keywords": [
+    "st",
+    "PLC"
+  ],
+  "homepage": "https://github.com/angleyanalbedo/ST2C#readme",
+  "bugs": {
+    "url": "https://github.com/angleyanalbedo/ST2C/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/angleyanalbedo/ST2C.git"
+  },
+  "license": "ISC",
+  "author": "RanniSnow",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint . --ext .ts",
+    "run": "node ./dist/index.js",
+    "test": "npm run lint && npm run build && node ./dist/index.js"
+  },
+  "devDependencies": {
+    "chevrotain": "^11.0.3",
+    "eslint": "^9.28.0",
+    "typescript": "^5.8.3"
+  }
+}
