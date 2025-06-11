@@ -18,14 +18,10 @@
   "author": "RanniSnow",
   "type": "module",
   "scripts": {
-    "build": "tsc",
-    "lint": "eslint . --ext .ts",
-    "run": "node ./dist/index.js",
-    "test": "npm run lint && npm run build && node ./dist/index.js"
+    "run": "node  src/index.js",
+    "test": "node src/index.js"
   },
   "devDependencies": {
-    "chevrotain": "^11.0.3",
-    "eslint": "^9.28.0",
-    "typescript": "^5.8.3"
+    "chevrotain": "^11.0.3"
   }
 }
