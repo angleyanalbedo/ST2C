@@ -8,9 +8,11 @@ class StParser extends CstParser{
         const $ = this;
         // 定义语法规则
         $.RULE("program", () => {
+            $.CONSUME($.PROGRAM);
             $.MANY(() => {
                 $.SUBRULE($.statement);
             });
+            $.CONSUME($.END_PROGRAM);
         });
         $.RULE("statement", () => {
             $.OR([

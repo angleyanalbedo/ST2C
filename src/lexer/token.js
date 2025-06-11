@@ -1,6 +1,8 @@
 import { createToken, Lexer } from 'chevrotain';
 
 // 关键字
+export const PROGRAM = createToken({ name: "PROGRAM", pattern: /PROGRAM/i });
+export const END_PROGRAM = createToken({ name: "END_PROGRAM", pattern: /END_PROGRAM/i });
 export const IF = createToken({ name: "IF", pattern: /IF/i });
 export const THEN = createToken({ name: "THEN", pattern: /THEN/i });
 export const ELSE = createToken({ name: "ELSE", pattern: /ELSE/i });
@@ -65,6 +67,7 @@ export const WhiteSpace = createToken({
 // 导出 token 列表
 export const allTokens = [
   WhiteSpace,
+  PROGRAM, END_PROGRAM,
   IF, THEN, ELSE, END_IF, VAR, END_VAR,
   FOR, TO, DO, END_FOR, WHILE, END_WHILE,
   REPEAT, UNTIL, END_REPEAT, RETURN,

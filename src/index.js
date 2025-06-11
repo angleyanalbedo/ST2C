@@ -15,5 +15,5 @@ function parseInput(text) {
   }
 }
 
-const inputText = "VAR x := 10; END_VAR FOR i := 1 TO 10 DO x := x + i; END_FOR RETURN x; END_VAR";
+const inputText = "PROGRAM VAR x := 10; END_VAR FOR i := 1 TO 10 DO x := x + i; END_FOR RETURN x; END_VAR END_PROGRAM";
 parseInput(inputText);
