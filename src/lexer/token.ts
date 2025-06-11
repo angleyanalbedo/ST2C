@@ -36,7 +36,17 @@ export const Gt = createToken({ name: "Gt", pattern: />/ });
 // 标识符和常量
 export const Identifier = createToken({ name: "Identifier", pattern: /[a-zA-Z_][a-zA-Z0-9_]*/ });
 export const Integer = createToken({ name: "Integer", pattern: /\d+/ });
+// 16进制整数
+export const HexInteger = createToken({ name: "HexInteger", pattern: /0x[0-9a-fA-F]+/ });
+// 8进制整数
+export const OctInteger = createToken({ name: "OctInteger", pattern: /0o[0-7]+/ });
+// 实数
 export const Real = createToken({ name: "Real", pattern: /\d+\.\d+/ });
+// 科学计数法实数
+export const ScientificReal = createToken({ name: "ScientificReal", pattern: /\d+\.\d+e[+-]?\d+/ });
+// 字符串
+export const StringLiteral = createToken({ name: "StringLiteral", pattern: /"(?:[^"\\]|\\.)*"/ });
+
 
 // 符号
 export const LParen = createToken({ name: "LParen", pattern: /\(/ });
