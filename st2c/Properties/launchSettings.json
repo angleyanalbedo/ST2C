@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "st2c": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}
