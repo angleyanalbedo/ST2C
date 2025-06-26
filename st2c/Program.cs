@@ -6,22 +6,48 @@ namespace st2c
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
-            PLCSTPARSERLexer pLCSTPARSERLexer = new PLCSTPARSERLexer(new AntlrInputStream(Console.In));
-            CommonTokenStream commonTokenStream = new CommonTokenStream(pLCSTPARSERLexer);
-            PLCSTPARSERParser pLCSTPARSERParser = new PLCSTPARSERParser(commonTokenStream);
-            pLCSTPARSERParser.RemoveErrorListeners();
-            pLCSTPARSERParser.AddErrorListener(new ConsoleErrorListener<IToken>());
-            var tree = pLCSTPARSERParser.startpoint();
-            if (tree != null)
+
+            // 获得当前工作目录
+            string currentDirectory = Environment.CurrentDirectory;
+            // 输出当前工作目录
+            Console.WriteLine($"Current Directory: {currentDirectory}");
+
+            // 获取工作目录下的ST文件
+
+            string[] stFiles = Directory.GetFiles(currentDirectory, "*.st");
+            foreach (string stFile in stFiles)
             {
-                Console.WriteLine("Parsing completed successfully.");
-                Console.WriteLine(tree.ToStringTree(pLCSTPARSERParser));
+                //读取ST文件内容到budder[]
+
+                try
+                {
+                    string fileContent = File.ReadAllText(stFile);
+                    Console.WriteLine($"File: {stFile}");
+                    Console.WriteLine(fileContent);
+                    PLCSTPARSERLexer pLCSTPARSERLexer = new PLCSTPARSERLexer(new AntlrInputStream(fileContent));
+                    CommonTokenStream commonTokenStream = new CommonTokenStream(pLCSTPARSERLexer);
+                    PLCSTPARSERParser pLCSTPARSERParser = new PLCSTPARSERParser(commonTokenStream);
+                    pLCSTPARSERParser.RemoveErrorListeners();
+                    pLCSTPARSERParser.AddErrorListener(new ConsoleErrorListener<IToken>());
+                    var tree = pLCSTPARSERParser.startpoint();
+                    if (tree != null)
+                    {
+                        Console.WriteLine("Parsing completed successfully.");
+                        Console.WriteLine(tree.ToStringTree(pLCSTPARSERParser));
+                    }
+                    else
+                    {
+                        Console.WriteLine("Parsing failed.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error reading file {stFile}: {ex.Message}");
+                }
+
             }
-            else
-            {
-                Console.WriteLine("Parsing failed.");
-            }
+
+            
         }
     }
 }
