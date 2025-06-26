@@ -15,6 +15,11 @@ namespace st2c
             // 获取工作目录下的ST文件
 
             string[] stFiles = Directory.GetFiles(currentDirectory, "*.st");
+            if (stFiles.Length == 0)
+            {
+                Console.WriteLine("No ST files found in the current directory.");
+                return;
+            }
             foreach (string stFile in stFiles)
             {
                 //读取ST文件内容到budder[]
@@ -46,8 +51,8 @@ namespace st2c
                 }
 
             }
+            Console.WriteLine("Press any key to exit...");
 
-            
         }
     }
 }
