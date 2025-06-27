@@ -275,5 +275,15 @@ namespace st2c.staticCheckVisitor.PLCSymbolAndScope
                    $"Scope depth: {this.scopeDepth}\n" +
                    $"Scope location: {this.ScopeLocation}\n";
         }
+
+        internal void SetScopeLocation(string v)
+        {
+            this.ScopeLocation = v;
+        }
+
+        internal bool GetScopeLocation()
+        {
+            return !string.IsNullOrEmpty(this.ScopeLocation);
+        }
     }
 }

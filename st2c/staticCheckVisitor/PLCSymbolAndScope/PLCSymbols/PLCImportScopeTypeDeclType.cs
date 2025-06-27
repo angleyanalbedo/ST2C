@@ -88,5 +88,10 @@ namespace st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbols
         {
             throw new NotImplementedException();
         }
+
+        internal void SetName(string v)
+        {
+            this.Name = v;
+        }
     }
 }
