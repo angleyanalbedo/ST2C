@@ -1,13 +1,13 @@
 ﻿using st2c.PLCException;
-using st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbols;
-using st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbolTables;
+using st2c.PLCSymbolAndScope.PLCSymbols;
+using st2c.PLCSymbolAndScope.PLCSymbolTables;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace st2c.staticCheckVisitor.PLCSymbolAndScope
+namespace st2c.PLCSymbolAndScope
 {
     public static class PLCScopeStack
     {

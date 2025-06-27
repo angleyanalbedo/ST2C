@@ -1,5 +1,6 @@
-﻿using st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbols;
-using st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbolTables;
+﻿using st2c.PLCSymbolAndScope;
+using st2c.PLCSymbolAndScope.PLCSymbols;
+using st2c.PLCSymbolAndScope.PLCSymbolTables;
 using System;
 using System;
 using System.Collections.Generic;
@@ -9,10 +10,10 @@ using System.Linq;
 using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
-using static st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbols.PLCModifierEnum;
+using static st2c.PLCSymbolAndScope.PLCSymbols.PLCModifierEnum;
 using static System.Formats.Asn1.AsnWriter;
 
-namespace st2c.staticCheckVisitor.PLCSymbolAndScope
+namespace st2c.PLCSymbolAndScope.PLCScope
 {
     public class PLCScope
     {
@@ -61,7 +62,7 @@ namespace st2c.staticCheckVisitor.PLCSymbolAndScope
 
         public PLCScope()
         {
-            this.scopeID = IDGenerator.GetIDGenerator().NewScopeId();
+            scopeID = IDGenerator.GetIDGenerator().NewScopeId();
             PLCScope tempParentScope = PLCScopeStack.CurrentScope;
 
             // 全局作用域没有父作用域, 与普通作用域区分对待
@@ -70,17 +71,17 @@ namespace st2c.staticCheckVisitor.PLCSymbolAndScope
                 scopeDepth = tempParentScope.GetScopeDepth() + 1;
 
                 // 设置父子关系
-                this.parentScope = PLCScopeStack.CurrentScope;
+                parentScope = PLCScopeStack.CurrentScope;
                 PLCScopeStack.CurrentScope.AddChildScope(this);
 
                 // 拷贝父作用域的命名空间
-                this.CopyUsingNSList(this.parentScope);
+                CopyUsingNSList(parentScope);
 
                 // 添加有效作用域,并去除重复
-                this.validScopeFromParents.Add(this.parentScope);
-                this.validScopeFromParents.AddRange(this.parentScope.validScopeFromParents);
-                this.validScopeFromParents.AddRange(this.parentScope.validScopeFromNamespace);
-                this.validScopeFromParents = RemoveDuplication(this.validScopeFromParents);
+                validScopeFromParents.Add(parentScope);
+                validScopeFromParents.AddRange(parentScope.validScopeFromParents);
+                validScopeFromParents.AddRange(parentScope.validScopeFromNamespace);
+                validScopeFromParents = RemoveDuplication(validScopeFromParents);
             }
             else
             {
@@ -91,16 +92,16 @@ namespace st2c.staticCheckVisitor.PLCSymbolAndScope
         // 添加子作用域
         private void AddChildScope(PLCScope scope)
         {
-            this.ChildScopeList.Add(scope);
+            ChildScopeList.Add(scope);
         }
 
         // 添加命名空间
         public void AddUsingNamespace(PLCNamespaceDeclSymbol namespaceSymbol)
         {
-            this.validScopeFromNamespace.Add(namespaceSymbol.GetImportScope());
-            this.validScopeFromNamespace.AddRange(namespaceSymbol.GetImportScope().validScopeFromNamespace);
-            this.validScopeFromNamespace = RemoveDuplication(this.validScopeFromNamespace);
-            this.usingNSList.Add(namespaceSymbol);
+            validScopeFromNamespace.Add(namespaceSymbol.GetImportScope());
+            validScopeFromNamespace.AddRange(namespaceSymbol.GetImportScope().validScopeFromNamespace);
+            validScopeFromNamespace = RemoveDuplication(validScopeFromNamespace);
+            usingNSList.Add(namespaceSymbol);
         }
 
         // **********************************搜素方法***********************************************
@@ -111,12 +112,12 @@ namespace st2c.staticCheckVisitor.PLCSymbolAndScope
          * */
         public PLCSymbol ShallowFindSymbol(string name)
         {
-            return this.scopeSymbolTable.FindSymbol(name);
+            return scopeSymbolTable.FindSymbol(name);
         }
 
         public PLCSymbol ShallowFindSymbol(string name, Sort sort)
         {
-            return this.scopeSymbolTable.FindSymbol(name, sort);
+            return scopeSymbolTable.FindSymbol(name, sort);
         }
 
         /**
@@ -126,14 +127,14 @@ namespace st2c.staticCheckVisitor.PLCSymbolAndScope
         public PLCSymbol DeepFindSymbol(string name)
         {
             // 浅搜索
-            PLCSymbol result = this.ShallowFindSymbol(name);
+            PLCSymbol result = ShallowFindSymbol(name);
             if (result != null)
             {
                 return result;
             }
 
             // 搜索validScopeFromParents
-            foreach (PLCScope scope in this.validScopeFromParents)
+            foreach (PLCScope scope in validScopeFromParents)
             {
                 result = scope.ShallowFindSymbol(name);
                 if (result != null)
@@ -143,7 +144,7 @@ namespace st2c.staticCheckVisitor.PLCSymbolAndScope
             }
 
             // 搜索搜索validScopeFromNamespace
-            foreach (PLCScope scope in this.validScopeFromNamespace)
+            foreach (PLCScope scope in validScopeFromNamespace)
             {
                 result = scope.ShallowFindSymbol(name);
                 if (result != null)
@@ -161,14 +162,14 @@ namespace st2c.staticCheckVisitor.PLCSymbolAndScope
         {
             List<PLCSymbol> symbolList = new List<PLCSymbol>();
             // 浅搜索
-            PLCSymbol result = this.ShallowFindSymbol(name);
+            PLCSymbol result = ShallowFindSymbol(name);
             if (result != null)
             {
                 symbolList.Add(result);
             }
 
             // 搜索validScopeFromParents
-            foreach (PLCScope scope in this.validScopeFromParents)
+            foreach (PLCScope scope in validScopeFromParents)
             {
                 result = scope.ShallowFindSymbol(name);
                 if (result != null)
@@ -178,7 +179,7 @@ namespace st2c.staticCheckVisitor.PLCSymbolAndScope
             }
 
             // 搜索搜索validScopeFromNamespace
-            foreach (PLCScope scope in this.validScopeFromNamespace)
+            foreach (PLCScope scope in validScopeFromNamespace)
             {
                 result = scope.ShallowFindSymbol(name);
                 if (result != null)
@@ -194,7 +195,7 @@ namespace st2c.staticCheckVisitor.PLCSymbolAndScope
          * */
         public PLCSymbol DeepFindSymbol(string name, Sort sort)
         {
-            List<PLCSymbol> symbolList = this.DeepFindAllSymbols(name);
+            List<PLCSymbol> symbolList = DeepFindAllSymbols(name);
             foreach (PLCSymbol symbol in symbolList)
             {
                 if (symbol.GetSort() == sort)
@@ -221,7 +222,7 @@ namespace st2c.staticCheckVisitor.PLCSymbolAndScope
         // 该作用域符号表的设置和获得方法
         public PLCSymbolTable GetScopeSymbolTable()
         {
-            return this.scopeSymbolTable;
+            return scopeSymbolTable;
         }
 
         public void SetScopeSymbolTable(PLCSymbolTable scopeSymbolTable)
@@ -265,25 +266,25 @@ namespace st2c.staticCheckVisitor.PLCSymbolAndScope
         // 拷贝父作用域的命名空间
         private void CopyUsingNSList(PLCScope another)
         {
-            this.usingNSList.AddRange(another.usingNSList);
+            usingNSList.AddRange(another.usingNSList);
         }
 
         public override string ToString()
         {
-            return $"Declare symbol: {this.declSymbol.Name}\n" +
-                   $"Scope ID: {this.scopeID}\n" +
-                   $"Scope depth: {this.scopeDepth}\n" +
-                   $"Scope location: {this.ScopeLocation}\n";
+            return $"Declare symbol: {declSymbol.Name}\n" +
+                   $"Scope ID: {scopeID}\n" +
+                   $"Scope depth: {scopeDepth}\n" +
+                   $"Scope location: {ScopeLocation}\n";
         }
 
         internal void SetScopeLocation(string v)
         {
-            this.ScopeLocation = v;
+            ScopeLocation = v;
         }
 
         internal bool GetScopeLocation()
         {
-            return !string.IsNullOrEmpty(this.ScopeLocation);
+            return !string.IsNullOrEmpty(ScopeLocation);
         }
     }
 }

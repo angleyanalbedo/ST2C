@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
-using st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbolTables;
+using st2c.PLCSymbolAndScope;
+using st2c.PLCSymbolAndScope.PLCScope;
+using st2c.PLCSymbolAndScope.PLCSymbolTables;
 
-namespace st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbols
+namespace st2c.PLCSymbolAndScope.PLCSymbols
 {
 
 
@@ -45,40 +47,40 @@ namespace st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbols
         // 具体参数构造方法
         public PLCSymbol(string name, int rowNum)
         {
-            this.Name = name;
-            this.RowNum = rowNum;
-            this.LocalSymbolTable = PLCScopeStack.CurrentSymbolTable;
-            this.LocalScope = PLCScopeStack.CurrentScope;
+            Name = name;
+            RowNum = rowNum;
+            LocalSymbolTable = PLCScopeStack.CurrentSymbolTable;
+            LocalScope = PLCScopeStack.CurrentScope;
         }
 
         // 默认构造方法
         public PLCSymbol()
         {
-            this.LocalSymbolTable = PLCScopeStack.CurrentSymbolTable;
-            this.LocalScope = PLCScopeStack.CurrentScope;
+            LocalSymbolTable = PLCScopeStack.CurrentSymbolTable;
+            LocalScope = PLCScopeStack.CurrentScope;
         }
 
         // 根据符号表或作用域设置所属
         public void SetLocal(PLCScope localScope)
         {
-            this.LocalSymbolTable = localScope.GetScopeSymbolTable();
-            this.LocalScope = localScope;
+            LocalSymbolTable = localScope.GetScopeSymbolTable();
+            LocalScope = localScope;
         }
 
         public void SetLocal(PLCSymbolTable localTable)
         {
-            this.LocalSymbolTable = localTable;
-            this.LocalScope = localTable.GetTableScope();
+            LocalSymbolTable = localTable;
+            LocalScope = localTable.GetTableScope();
         }
 
         public void SetSort(PLCModifierEnum.Sort sort)
         {
-            this.Sort = sort;
+            Sort = sort;
         }
 
         public PLCModifierEnum.Sort GetSort()
         {
-            return this.Sort;
+            return Sort;
         }
 
         public JToken ToStringJson()
@@ -107,7 +109,7 @@ namespace st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbols
 
         public void SetTypeId(int typeId)
         {
-            this.TypeId = typeId;
+            TypeId = typeId;
         }
 
         internal int GetSymbolId()

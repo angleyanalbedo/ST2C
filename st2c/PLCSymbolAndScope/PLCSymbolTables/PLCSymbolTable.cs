@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Reflection.Emit;
-using st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbols;
+using st2c.PLCSymbolAndScope;
+using st2c.PLCSymbolAndScope.PLCScope;
+using st2c.PLCSymbolAndScope.PLCSymbols;
 
-namespace st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbolTables
+namespace st2c.PLCSymbolAndScope.PLCSymbolTables
 {
     
 
@@ -120,17 +122,17 @@ namespace st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbolTables
 
         public void SetSrcSymbol(PLCImportScopeTypeDeclType symbol)
         {
-            this.SrcSymbol = symbol;
+            SrcSymbol = symbol;
         }
 
         public void SetTableScope(PLCScope scope)
         {
-            this.TableScope = scope;
+            TableScope = scope;
         }
 
         internal PLCScope GetTableScope()
         {
-            return this.TableScope;
+            return TableScope;
         }
     }
 }

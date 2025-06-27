@@ -7,8 +7,9 @@ using Newtonsoft.Json.Linq; // 用于 JSON 操作
 using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
+using st2c.PLCSymbolAndScope;
 
-namespace st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbols
+namespace st2c.PLCSymbolAndScope.PLCSymbols
 {
     public class PLCTypeDeclSymbol : PLCSymbol
     {
@@ -22,33 +23,33 @@ namespace st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbols
 
         public PLCTypeDeclSymbol(PLCTypeDeclSymbol resource) : base()
         {
-            this.Sort = resource.Sort;
-            this.VarSort = resource.VarSort;
+            Sort = resource.Sort;
+            VarSort = resource.VarSort;
 
-            this.TypeId = resource.TypeId;
-            this.AssignableSet.Add(TypeId);
+            TypeId = resource.TypeId;
+            AssignableSet.Add(TypeId);
 
-            this.SymbolId = resource.SymbolId;
-            this.InitVar = resource.InitVar;
-            this.Name = resource.Name;
-            this.RuntimeName = resource.RuntimeName;
+            SymbolId = resource.SymbolId;
+            InitVar = resource.InitVar;
+            Name = resource.Name;
+            RuntimeName = resource.RuntimeName;
         }
 
         // 内置类型初始化专供,其他情况不应当调用
         public PLCTypeDeclSymbol(int symbolId, int typeId, string name)
         {
-            this.SymbolId = symbolId;
-            this.TypeId = typeId;
-            this.Name = name;
-            this.RowNum = -1;
-            this.LocalScope = PLCScopeStack.GlobalScope;
-            this.LocalSymbolTable = PLCScopeStack.GlobalSymbolTable;
+            SymbolId = symbolId;
+            TypeId = typeId;
+            Name = name;
+            RowNum = -1;
+            LocalScope = PLCScopeStack.GlobalScope;
+            LocalSymbolTable = PLCScopeStack.GlobalSymbolTable;
         }
 
         public void SetTypeId(int typeId)
         {
             base.SetTypeId(typeId);
-            this.AssignableSet.Add(typeId);
+            AssignableSet.Add(typeId);
         }
 
         // 类型的初始值
@@ -63,13 +64,13 @@ namespace st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbols
         // 检查是否可进行数字运算(+-*/)
         public bool CheckCanMathCalcWith(int typeId)
         {
-            return this.CalculableSet.Contains(typeId);
+            return CalculableSet.Contains(typeId);
         }
 
         // 添加可进行数学运算的类型id
         public void AddCalculableType(int typeId)
         {
-            this.CalculableSet.Add(typeId);
+            CalculableSet.Add(typeId);
         }
 
         // 存储可进行大小比较的类型id
@@ -78,13 +79,13 @@ namespace st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbols
         // 检查是否可进行大小比较
         public bool CheckCanCompareWith(int typeId)
         {
-            return this.ComparableSet.Contains(typeId);
+            return ComparableSet.Contains(typeId);
         }
 
         // 添加可进行大小比较的类型
         public void AddComparableType(int typeId)
         {
-            this.ComparableSet.Add(typeId);
+            ComparableSet.Add(typeId);
         }
 
         // 存储可进行判等的类型id
@@ -93,13 +94,13 @@ namespace st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbols
         // 检查是否可进行判等
         public bool CheckCanEqualWith(int typeId)
         {
-            return this.EqualitySet.Contains(typeId);
+            return EqualitySet.Contains(typeId);
         }
 
         // 添加可进行判等的类型
         public void AddEqualType(int typeId)
         {
-            this.EqualitySet.Add(typeId);
+            EqualitySet.Add(typeId);
         }
 
         // 存储可进行赋值的类型id
@@ -108,13 +109,13 @@ namespace st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbols
         // 检查是否可进行赋值
         public bool CheckCanAssignWith(int typeId)
         {
-            return this.AssignableSet.Contains(typeId);
+            return AssignableSet.Contains(typeId);
         }
 
         // 添加可进行赋值的类型id
         public void AddAssignableType(int typeId)
         {
-            this.AssignableSet.Add(typeId);
+            AssignableSet.Add(typeId);
         }
 
         public override string ToString()

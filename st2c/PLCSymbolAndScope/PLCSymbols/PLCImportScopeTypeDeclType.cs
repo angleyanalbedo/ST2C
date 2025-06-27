@@ -1,19 +1,20 @@
 ﻿using Newtonsoft.Json.Linq;
-using st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbolTables;
+using st2c.PLCSymbolAndScope.PLCScope;
+using st2c.PLCSymbolAndScope.PLCSymbolTables;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbols
+namespace st2c.PLCSymbolAndScope.PLCSymbols
 {
     public class PLCImportScopeTypeDeclType : PLCTypeDeclSymbol
     {
         public PLCImportScopeTypeDeclType(PLCImportScopeTypeDeclType resource) : base(resource)
         {
-            this.ImportScope = resource.ImportScope;
-            this.ImportSymbolTable = resource.ImportSymbolTable;
+            ImportScope = resource.ImportScope;
+            ImportSymbolTable = resource.ImportSymbolTable;
         }
 
         public PLCImportScopeTypeDeclType() : base()
@@ -91,7 +92,7 @@ namespace st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbols
 
         internal void SetName(string v)
         {
-            this.Name = v;
+            Name = v;
         }
     }
 }

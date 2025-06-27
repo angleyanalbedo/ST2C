@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace st2c.staticCheckVisitor.PLCSymbolAndScope
+namespace st2c.PLCSymbolAndScope
 {
     // 生成唯一ID标记符号、符号表、作用域对象
     public sealed class IDGenerator
