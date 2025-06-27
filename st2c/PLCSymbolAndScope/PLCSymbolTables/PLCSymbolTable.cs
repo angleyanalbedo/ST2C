@@ -9,6 +9,7 @@ using System.Reflection.Emit;
 using st2c.PLCSymbolAndScope;
 using st2c.PLCSymbolAndScope.PLCScope;
 using st2c.PLCSymbolAndScope.PLCSymbols;
+using st2c.PLCSymbolAndScope.PLCScopes;
 
 namespace st2c.PLCSymbolAndScope.PLCSymbolTables
 {

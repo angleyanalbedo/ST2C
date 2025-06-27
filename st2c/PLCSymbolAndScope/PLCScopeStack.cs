@@ -1,4 +1,5 @@
 ﻿using st2c.PLCException;
+using st2c.PLCSymbolAndScope.PLCScopes;
 using st2c.PLCSymbolAndScope.PLCSymbols;
 using st2c.PLCSymbolAndScope.PLCSymbolTables;
 using System;

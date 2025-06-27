@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
-using st2c.PLCSymbolAndScope.PLCScope;
+using st2c.PLCSymbolAndScope.PLCScopes;
 using st2c.PLCSymbolAndScope.PLCSymbolTables;
 using System;
 using System.Collections.Generic;
@@ -77,17 +77,17 @@ namespace st2c.PLCSymbolAndScope.PLCSymbols
 
         internal string GetName()
         {
-            throw new NotImplementedException();
+            return Name;
         }
 
         internal void SetImportSymbolTable(PLCSymbolTable table)
         {
-            throw new NotImplementedException();
+            this.ImportSymbolTable = table;
         }
 
         internal void SetImportScope(PLCScope scope)
         {
-            throw new NotImplementedException();
+            this.ImportScope = scope;
         }
 
         internal void SetName(string v)

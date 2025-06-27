@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 using static st2c.PLCSymbolAndScope.PLCSymbols.PLCModifierEnum;
 using static System.Formats.Asn1.AsnWriter;
 
-namespace st2c.PLCSymbolAndScope.PLCScope
+namespace st2c.PLCSymbolAndScope.PLCScopes
 {
     public class PLCScope
     {

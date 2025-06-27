@@ -1,13 +1,15 @@
 ﻿using Newtonsoft.Json.Linq;
 using st2c.JSON;
 using st2c.PLCSymbolAndScope;
-using st2c.PLCSymbolAndScope.PLCScope;
+using st2c.PLCSymbolAndScope.PLCScopes;
 using st2c.PLCSymbolAndScope.PLCSymbols;
+using st2c.staticCheckVisitor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace st2c.PLCSymbolAndScope.PLCSymbolTables
 {
@@ -17,7 +19,7 @@ namespace st2c.PLCSymbolAndScope.PLCSymbolTables
         // 类型id-类型声明符号表
         public static Dictionary<int, PLCTypeDeclSymbol> TotalTypeMap = new Dictionary<int, PLCTypeDeclSymbol>();
 
-        public static PLCTypeDeclSymbol GetTypeByTypeID(int typeID)
+        public static PLCTypeDeclSymbol? GetTypeByTypeID(int typeID)
         {
             return TotalTypeMap.TryGetValue(typeID, out var type) ? type : null;
         }
@@ -115,7 +117,7 @@ namespace st2c.PLCSymbolAndScope.PLCSymbolTables
             try
             {
                 // Ensure directory exists
-                Directory.CreateDirectory(Path.GetDirectoryName(path));
+                Directory.CreateDirectory(path: Path.GetDirectoryName(path));
 
                 // Write all text to file (automatically creates file if doesn't exist)
                 File.WriteAllText(path, stringBuilder.ToString());
