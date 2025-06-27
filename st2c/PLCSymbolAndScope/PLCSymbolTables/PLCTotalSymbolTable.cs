@@ -1,13 +1,15 @@
 ﻿using Newtonsoft.Json.Linq;
 using st2c.JSON;
-using st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbols;
+using st2c.PLCSymbolAndScope;
+using st2c.PLCSymbolAndScope.PLCScope;
+using st2c.PLCSymbolAndScope.PLCSymbols;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbolTables
+namespace st2c.PLCSymbolAndScope.PLCSymbolTables
 {
     // 总符号表（依靠ID索引）
     public static class PLCTotalSymbolTable

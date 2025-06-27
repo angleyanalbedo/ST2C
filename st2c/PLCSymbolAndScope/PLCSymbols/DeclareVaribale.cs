@@ -5,13 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbols
+namespace st2c.PLCSymbolAndScope.PLCSymbols
 {
     public interface DeclareVariable
     {
-        Dictionary<String, PLCVariable> GetVariableMap();
+        Dictionary<string, PLCVariable> GetVariableMap();
 
-        PLCVariable GetVariable(String name);
+        PLCVariable GetVariable(string name);
 
         void AddVariable(PLCVariable var);
 

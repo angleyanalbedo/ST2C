@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using static st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbols.PLCModifierEnum;
+using static st2c.PLCSymbolAndScope.PLCSymbols.PLCModifierEnum;
 
-namespace st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbols
+namespace st2c.PLCSymbolAndScope.PLCSymbols
 {
     // 枚举量定义时也会引入一个作用域
     public class PLCEnumDeclSymbol : PLCImportScopeTypeDeclType
@@ -40,13 +40,13 @@ namespace st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbols
 
         public void AddEnumValue(PLCVariable enumValue)
         {
-            this.enumValues.Add(enumValue);
+            enumValues.Add(enumValue);
         }
 
         // 返回枚举类型内的枚举常量
         public PLCVariable FindEnumValue(string name)
         {
-            foreach (PLCVariable enumValue in this.enumValues)
+            foreach (PLCVariable enumValue in enumValues)
             {
                 if (name.Equals(enumValue.GetName()))
                 {
@@ -81,40 +81,45 @@ namespace st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbols
 
         public void AddEnumElemName(string name)
         {
-            this.enumElemName.Add(name);
+            enumElemName.Add(name);
         }
 
         // 枚举常量列表
         public List<string> enumElemName = new List<string>();
 
         // 枚举常量的sort
-        public PLCModifierEnum.Sort enumConstSort;
+        public Sort enumConstSort;
 
-        public PLCModifierEnum.Sort GetEnumConstSort()
+        public Sort GetEnumConstSort()
         {
             return enumConstSort;
         }
 
         public PLCEnumDeclSymbol() : base()
         {
-            sort = PLCModifierEnum.Sort.ENUM_DECL;
-            varSort = PLCModifierEnum.Sort.ENUM;
+            Sort = Sort.ENUM_DECL;
+            VarSort = Sort.ENUM;
         }
 
         public PLCEnumDeclSymbol(string name, int rowNum) : base(name, rowNum)
         {
-            sort = PLCModifierEnum.Sort.ENUM_DECL;
-            varSort = PLCModifierEnum.Sort.ENUM;
+            Sort = Sort.ENUM_DECL;
+            VarSort = Sort.ENUM;
         }
 
         public PLCEnumDeclSymbol(PLCEnumDeclSymbol resource) : base(resource)
         {
         }
 
-        public override void SetTypeId(int typeId)
+        public  void SetTypeId(int typeId)
         {
             base.SetTypeId(typeId);
             this.SetRuntimeName("PLC_Enum_Value<" + typeId + ">");
+        }
+
+        private void SetRuntimeName(string v)
+        {
+            this.RuntimeName = v;
         }
 
         public override string ToString()
@@ -125,16 +130,16 @@ namespace st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbols
                    $"initEnumVar={initEnumVar}, " +
                    $"enumElemName={string.Join(", ", enumElemName)}, " +
                    $"enumConstSort={enumConstSort}, " +
-                   $"initVar='{initVar}', " +
-                   $"varSort={varSort}, " +
-                   $"symbolId={symbolId}, " +
-                   $"typeId={typeId}, " +
-                   $"name='{name}', " +
-                   $"rowNum={rowNum}, " +
-                   $"columnNum={columnNum}, " +
-                   $"sort={sort}, " +
-                   $"runtimeName='{runtimeName}', " +
-                   $"runtimeTypeName='{runtimeTypeName}'" +
+                   $"initVar='{InitVar}', " +
+                   $"varSort={VarSort}, " +
+                   $"symbolId={SymbolId}, " +
+                   $"typeId={TypeId}, " +
+                   $"name='{Name}', " +
+                   $"rowNum={RowNum}, " +
+                   $"columnNum={ColumnNum}, " +
+                   $"sort={Sort}, " +
+                   $"runtimeName='{RuntimeName}', " +
+                   $"runtimeTypeName='{RuntimeTypeName}'" +
                    $"}}";
         }
 
@@ -161,16 +166,16 @@ namespace st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbols
             jsonObject["enumElemName"] = jsonArray;
 
             jsonObject["enumConstSort"] = enumConstSort != null ? enumConstSort.ToString() : null;
-            jsonObject["initVar"] = initVar;
-            jsonObject["varSort"] = varSort != null ? varSort.ToString() : null;
-            jsonObject["symbolId"] = symbolId;
-            jsonObject["typeId"] = typeId;
-            jsonObject["name"] = name;
-            jsonObject["rowNum"] = rowNum;
-            jsonObject["columnNum"] = columnNum;
-            jsonObject["sort"] = sort != null ? sort.ToString() : null;
-            jsonObject["runtimeName"] = runtimeName;
-            jsonObject["runtimeTypeName"] = runtimeTypeName;
+            jsonObject["initVar"] = InitVar;
+            jsonObject["varSort"] = VarSort != null ? VarSort.ToString() : null;
+            jsonObject["symbolId"] = SymbolId;
+            jsonObject["typeId"] = TypeId;
+            jsonObject["name"] = Name;
+            jsonObject["rowNum"] = RowNum;
+            jsonObject["columnNum"] = ColumnNum;
+            jsonObject["sort"] = Sort != null ? Sort.ToString() : null;
+            jsonObject["runtimeName"] = RuntimeName;
+            jsonObject["runtimeTypeName"] = RuntimeTypeName;
 
             JObject jsonSymbol = new JObject();
             jsonSymbol["PLCEnumDeclSymbol"] = jsonObject;
