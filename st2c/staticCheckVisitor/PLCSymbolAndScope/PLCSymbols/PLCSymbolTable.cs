@@ -11,7 +11,7 @@ namespace st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbols
 {
     
 
-    internal class PLCSymbolTable
+    public class PLCSymbolTable
     {
         // 符号表ID
         public int TableId { get; set; }
@@ -53,7 +53,7 @@ namespace st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbols
             var sameNameSymbols = new List<PLCSymbol>();
             foreach (var symbol in SymbolIdDict.Values)
             {
-                if (name == symbol.Name)
+                if (name == symbol.name)
                     sameNameSymbols.Add(symbol);
             }
             return sameNameSymbols;
@@ -68,8 +68,8 @@ namespace st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbols
 
         public void AddSymbol(PLCSymbol plcSymbol)
         {
-            SymbolNameDict[plcSymbol.Name] = plcSymbol;
-            SymbolIdDict[plcSymbol.SymbolId] = plcSymbol;
+            SymbolNameDict[plcSymbol.name] = plcSymbol;
+            SymbolIdDict[plcSymbol.symbolId] = plcSymbol;
         }
 
         // JSON序列化

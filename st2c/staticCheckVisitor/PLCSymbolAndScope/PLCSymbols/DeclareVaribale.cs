@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbols
 {
-    internal interface DeclareVariable
+    public interface DeclareVariable
     {
         Dictionary<String, PLCVariable> GetVariableMap();
 

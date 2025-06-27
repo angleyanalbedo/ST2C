@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbols
 {
-    internal interface DeclareMethod
+    public interface DeclareMethod
     {
         void AddMethod(PLCMethodDeclSymbol method);
 
