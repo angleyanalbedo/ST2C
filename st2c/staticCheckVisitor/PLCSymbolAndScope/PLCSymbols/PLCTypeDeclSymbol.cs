@@ -10,64 +10,8 @@ using System.Xml.Linq;
 
 namespace st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbols
 {
-    
-
     public class PLCTypeDeclSymbol : PLCSymbol
     {
-        // 类型的初始值
-        protected string initVar = "";
-
-        public string InitVar
-        {
-            get { return initVar; }
-            set { initVar = value; }
-        }
-
-        // 类型对应的变量的分类，默认确定
-        protected PLCModifierEnum.Sort varSort;
-
-        public PLCModifierEnum.Sort VarSort
-        {
-            get { return varSort; }
-            set { varSort = value; }
-        }
-
-        // 存储可进行数学运算的类型
-        private HashSet<int> calculableSet = new HashSet<int>();
-
-        public HashSet<int> CalculableSet
-        {
-            get { return calculableSet; }
-            set { calculableSet = value; }
-        }
-
-        // 存储可进行大小比较的类型
-        private HashSet<int> comparableSet = new HashSet<int>();
-
-        public HashSet<int> ComparableSet
-        {
-            get { return comparableSet; }
-            set { comparableSet = value; }
-        }
-
-        // 存储可进行判等的类型
-        private HashSet<int> equalitySet = new HashSet<int>();
-
-        public HashSet<int> EqualitySet
-        {
-            get { return equalitySet; }
-            set { equalitySet = value; }
-        }
-
-        // 存储可进行赋值的类型
-        private HashSet<int> assignableSet = new HashSet<int>();
-
-        public HashSet<int> AssignableSet
-        {
-            get { return assignableSet; }
-            set { assignableSet = value; }
-        }
-
         public PLCTypeDeclSymbol() : base()
         {
         }
@@ -78,125 +22,142 @@ namespace st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbols
 
         public PLCTypeDeclSymbol(PLCTypeDeclSymbol resource) : base()
         {
-            this.sort = resource.sort;
-            this.varSort = resource.varSort;
+            this.Sort = resource.Sort;
+            this.VarSort = resource.VarSort;
 
-            this.typeId = resource.typeId;
-            this.assignableSet.Add(typeId);
+            this.TypeId = resource.TypeId;
+            this.AssignableSet.Add(TypeId);
 
-            this.symbolId = resource.symbolId;
-            this.initVar = resource.initVar;
-            this.name = resource.name;
-            this.runtimeName = resource.runtimeName;
+            this.SymbolId = resource.SymbolId;
+            this.InitVar = resource.InitVar;
+            this.Name = resource.Name;
+            this.RuntimeName = resource.RuntimeName;
         }
 
-        // 内置类型初始化专供，其他情况不应当调用
+        // 内置类型初始化专供,其他情况不应当调用
         public PLCTypeDeclSymbol(int symbolId, int typeId, string name)
         {
-            this.symbolId = symbolId;
-            this.typeId = typeId;
-            this.name = name;
-            this.rowNum = -1;
-            this.localScope = PLCScopeStack.GlobalScope;
-            this.localSymbolTable = PLCScopeStack.GlobalSymbolTable;
+            this.SymbolId = symbolId;
+            this.TypeId = typeId;
+            this.Name = name;
+            this.RowNum = -1;
+            this.LocalScope = PLCScopeStack.GlobalScope;
+            this.LocalSymbolTable = PLCScopeStack.GlobalSymbolTable;
         }
 
-        public override void SetTypeId(int typeId)
+        public void SetTypeId(int typeId)
         {
             base.SetTypeId(typeId);
-            this.assignableSet.Add(typeId);
+            this.AssignableSet.Add(typeId);
         }
 
-        // 检查是否可进行数字运算 (+-*/)
+        // 类型的初始值
+        public string InitVar { get; set; } = "";
+
+        // 类型对应的变量的分类,默认确定
+        public PLCModifierEnum.Sort VarSort { get; set; }
+
+        // 存储可进行数学运算的类型
+        private HashSet<int> CalculableSet { get; set; } = new HashSet<int>();
+
+        // 检查是否可进行数字运算(+-*/)
         public bool CheckCanMathCalcWith(int typeId)
         {
-            return this.calculableSet.Contains(typeId);
+            return this.CalculableSet.Contains(typeId);
         }
 
-        // 添加可进行数学运算的类型
+        // 添加可进行数学运算的类型id
         public void AddCalculableType(int typeId)
         {
-            this.calculableSet.Add(typeId);
+            this.CalculableSet.Add(typeId);
         }
+
+        // 存储可进行大小比较的类型id
+        private HashSet<int> ComparableSet { get; set; } = new HashSet<int>();
 
         // 检查是否可进行大小比较
         public bool CheckCanCompareWith(int typeId)
         {
-            return this.comparableSet.Contains(typeId);
+            return this.ComparableSet.Contains(typeId);
         }
 
         // 添加可进行大小比较的类型
         public void AddComparableType(int typeId)
         {
-            this.comparableSet.Add(typeId);
+            this.ComparableSet.Add(typeId);
         }
+
+        // 存储可进行判等的类型id
+        private HashSet<int> EqualitySet { get; set; } = new HashSet<int>();
 
         // 检查是否可进行判等
         public bool CheckCanEqualWith(int typeId)
         {
-            return this.equalitySet.Contains(typeId);
+            return this.EqualitySet.Contains(typeId);
         }
 
         // 添加可进行判等的类型
         public void AddEqualType(int typeId)
         {
-            this.equalitySet.Add(typeId);
+            this.EqualitySet.Add(typeId);
         }
+
+        // 存储可进行赋值的类型id
+        private HashSet<int> AssignableSet { get; set; } = new HashSet<int>();
 
         // 检查是否可进行赋值
         public bool CheckCanAssignWith(int typeId)
         {
-            return this.assignableSet.Contains(typeId);
+            return this.AssignableSet.Contains(typeId);
         }
 
-        // 添加可进行赋值的类型
+        // 添加可进行赋值的类型id
         public void AddAssignableType(int typeId)
         {
-            this.assignableSet.Add(typeId);
+            this.AssignableSet.Add(typeId);
         }
 
         public override string ToString()
         {
-            StringBuilder str = new StringBuilder();
-            str.Append("PLCTypeDeclSymbol{initVar='").Append(initVar).Append('\'')
-                .Append(", varSort=").Append(varSort)
-                .Append(", calculableSet=").Append(string.Join(", ", calculableSet))
-                .Append(", comparableSet=").Append(string.Join(", ", comparableSet))
-                .Append(", equalitySet=").Append(string.Join(", ", equalitySet))
-                .Append(", assignableSet=").Append(string.Join(", ", assignableSet))
-                .Append(", symbolId=").Append(symbolId)
-                .Append(", typeId=").Append(typeId)
-                .Append(", name='").Append(name).Append('\'')
-                .Append(", rowNum=").Append(rowNum)
-                .Append(", columnNum=").Append(columnNum)
-                .Append(", sort=").Append(sort)
-                .Append(", runtimeName='").Append(runtimeName).Append('\'')
-                .Append(", runtimeTypeName='").Append(runtimeTypeName).Append('\'').Append('}');
+            var str = new StringBuilder();
+            str.Append($"PLCTypeDeclSymbol{{initVar='{InitVar}', ").Append($"varSort={VarSort}, ").Append($"calculableSet={string.Join(",", CalculableSet)}, ")
+               .Append($"comparableSet={string.Join(",", ComparableSet)}, ")
+               .Append($"equalitySet={string.Join(",", EqualitySet)}, ")
+               .Append($"assignableSet={string.Join(",", AssignableSet)}, ")
+               .Append($"symbolId={SymbolId}, ")
+               .Append($"typeId={TypeId}, ")
+               .Append($"name='{Name}', ")
+               .Append($"rowNum={RowNum}, ")
+               .Append($"columnNum={ColumnNum}, ")
+               .Append($"sort={Sort}, ")
+               .Append($"runtimeName='{RuntimeName}', ")
+               .Append($"runtimeTypeName='{RuntimeTypeName}'}}");
             return str.ToString();
         }
 
         public JToken ToStringJson()
         {
-            JObject jsonObject = new JObject();
+            var jsonObject = new JObject();
 
-            jsonObject["initVar"] = initVar;
-            jsonObject["varSort"] = varSort?.ToString() ?? "null";
-            jsonObject["calculableSet"] = new JArray(calculableSet);
-            jsonObject["comparableSet"] = new JArray(comparableSet);
-            jsonObject["equalitySet"] = new JArray(equalitySet);
-            jsonObject["assignableSet"] = new JArray(assignableSet);
-            jsonObject["symbolId"] = symbolId;
-            jsonObject["typeId"] = typeId;
-            jsonObject["name"] = name;
-            jsonObject["rowNum"] = rowNum;
-            jsonObject["columnNum"] = columnNum;
-            jsonObject["sort"] = sort?.ToString();
-            jsonObject["runtimeName"] = runtimeName;
-            jsonObject["runtimeTypeName"] = runtimeTypeName;
+            jsonObject["initVar"] = InitVar;
+            jsonObject["varSort"] = VarSort.ToString() ?? "null";
 
-            JObject jsonSymbol = new JObject();
+            jsonObject["calculableSet"] = new JArray(CalculableSet);
+            jsonObject["comparableSet"] = new JArray(ComparableSet);
+            jsonObject["equalitySet"] = new JArray(EqualitySet);
+            jsonObject["assignableSet"] = new JArray(AssignableSet);
+
+            jsonObject["symbolId"] = SymbolId;
+            jsonObject["typeId"] = TypeId;
+            jsonObject["name"] = Name;
+            jsonObject["rowNum"] = RowNum;
+            jsonObject["columnNum"] = ColumnNum;
+            jsonObject["sort"] = Sort.ToString();
+            jsonObject["runtimeName"] = RuntimeName;
+            jsonObject["runtimeTypeName"] = RuntimeTypeName;
+
+            var jsonSymbol = new JObject();
             jsonSymbol["PLCTypeDeclSymbol"] = jsonObject;
-
             return jsonSymbol;
         }
     }

@@ -20,23 +20,23 @@ namespace st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbols
 
         public PLCArrayDeclSymbol() : base()
         {
-            sort = PLCModifierEnum.Sort.ARRAY_DECL;
+            Sort = PLCModifierEnum.Sort.ARRAY_DECL;
             VarSort = PLCModifierEnum.Sort.ARRAY;
         }
 
         public PLCArrayDeclSymbol(string name, int rowNum) : base(name, rowNum)
         {
-            sort = PLCModifierEnum.Sort.ARRAY_DECL;
+            Sort = PLCModifierEnum.Sort.ARRAY_DECL;
             VarSort = PLCModifierEnum.Sort.ARRAY;
         }
 
         public PLCArrayDeclSymbol(PLCArrayDeclSymbol resource) : base(resource)
         {
             Dimension = resource.Dimension;
-            ElementTypeId = resource.typeId;
+            ElementTypeId = resource.TypeId;
         }
 
-        public override void SetTypeId(int typeId)
+        public  void SetTypeId(int typeId)
         {
             base.SetTypeId(typeId);
             RuntimeName = $"PLC_Array_Value<{typeId}>";
@@ -45,9 +45,9 @@ namespace st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbols
         public override string ToString()
         {
             return $"PLCArrayDeclSymbol{{elementTypeId={ElementTypeId}, dimension={Dimension}, " +
-                   $"initVar='{InitVar}', varSort={VarSort}, symbolId={symbolId}, " +
-                   $"typeId={typeId}, name='{name}', rowNum={rowNum}, columnNum={ColumnNum}, " +
-                   $"sort={sort}, runtimeName='{RuntimeName}', runtimeTypeName='{runtimeTypeName}'}}";
+                   $"initVar='{InitVar}', varSort={VarSort}, symbolId={SymbolId}, " +
+                   $"typeId={TypeId}, name='{Name}', rowNum={RowNum}, columnNum={ColumnNum}, " +
+                   $"sort={Sort}, runtimeName='{RuntimeName}', runtimeTypeName='{RuntimeTypeName}'}}";
         }
 
         public JObject ToJson()
@@ -56,15 +56,15 @@ namespace st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbols
             jsonObject["elementTypeId"] = ElementTypeId;
             jsonObject["dimension"] = Dimension;
             jsonObject["initVar"] = InitVar;
-            jsonObject["varSort"] = VarSort?.ToString();
-            jsonObject["symbolId"] = symbolId;
-            jsonObject["typeId"] = typeId;
-            jsonObject["name"] = name;
-            jsonObject["rowNum"] = rowNum;
+            jsonObject["varSort"] = VarSort.ToString();
+            jsonObject["symbolId"] = SymbolId;
+            jsonObject["typeId"] = TypeId;
+            jsonObject["name"] = Name;
+            jsonObject["rowNum"] = RowNum;
             jsonObject["columnNum"] = ColumnNum;
-            jsonObject["sort"] = sort?.ToString();
+            jsonObject["sort"] = Sort.ToString();
             jsonObject["runtimeName"] = RuntimeName;
-            jsonObject["runtimeTypeName"] = runtimeTypeName;
+            jsonObject["runtimeTypeName"] = RuntimeTypeName;
 
             var jsonSymbol = new JObject();
             jsonSymbol["PLCArrayDeclSymbol"] = jsonObject;

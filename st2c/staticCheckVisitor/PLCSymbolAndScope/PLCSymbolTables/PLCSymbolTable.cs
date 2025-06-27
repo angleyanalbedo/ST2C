@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Reflection.Emit;
+using st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbols;
 
-namespace st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbols
+namespace st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbolTables
 {
     
 
@@ -28,7 +29,7 @@ namespace st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbols
 
         public PLCSymbolTable()
         {
-            this.TableId = IDGenerator.Instance.NewTableId();
+            TableId = IDGenerator.Instance.NewTableId();
         }
 
         // 查找符号方法
@@ -53,7 +54,7 @@ namespace st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbols
             var sameNameSymbols = new List<PLCSymbol>();
             foreach (var symbol in SymbolIdDict.Values)
             {
-                if (name == symbol.name)
+                if (name == symbol.Name)
                     sameNameSymbols.Add(symbol);
             }
             return sameNameSymbols;
@@ -68,8 +69,8 @@ namespace st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbols
 
         public void AddSymbol(PLCSymbol plcSymbol)
         {
-            SymbolNameDict[plcSymbol.name] = plcSymbol;
-            SymbolIdDict[plcSymbol.symbolId] = plcSymbol;
+            SymbolNameDict[plcSymbol.Name] = plcSymbol;
+            SymbolIdDict[plcSymbol.SymbolId] = plcSymbol;
         }
 
         // JSON序列化
@@ -79,12 +80,12 @@ namespace st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbols
             jsonObject["Table Id"] = TableId;
             jsonObject["Symbol name"] = SrcSymbol?.Name;
             jsonObject["Symbol list"] = "";
-            jsonObject["Symbol Sort"] = SrcSymbol?.GetSort()?.ToString() ?? "null";
+            jsonObject["Symbol Sort"] = SrcSymbol?.GetSort().ToString() ?? "null";
 
             var jsonArray = new JArray();
             foreach (var symbol in SymbolIdDict.Values)
             {
-                jsonArray.Add(symbol.ToJson());
+                jsonArray.Add(symbol.ToStringJson());
             }
             jsonObject["PLCSymbolMap"] = jsonArray;
 
@@ -93,7 +94,7 @@ namespace st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbols
 
         public override string ToString()
         {
-            var str = new System.Text.StringBuilder();
+            var str = new StringBuilder();
             str.AppendLine($"Table Id:{TableId}")
                .AppendLine($"Symbol name:{SrcSymbol?.Name}")
                .AppendLine("Symbol list :")
@@ -101,10 +102,35 @@ namespace st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbols
 
             foreach (var symbol in SymbolIdDict.Values)
             {
-                str.AppendLine(symbol.ToJson().ToString());
+                str.AppendLine(symbol.ToStringJson().ToString());
             }
             str.AppendLine("*******************************");
             return str.ToString();
+        }
+
+        public Dictionary<int, PLCSymbol> GetSymbolIDDictionary()
+        {
+            return SymbolIdDict;
+        }
+
+        public int GetTableId()
+        {
+            return TableId;
+        }
+
+        public void SetSrcSymbol(PLCImportScopeTypeDeclType symbol)
+        {
+            this.SrcSymbol = symbol;
+        }
+
+        public void SetTableScope(PLCScope scope)
+        {
+            this.TableScope = scope;
+        }
+
+        internal PLCScope GetTableScope()
+        {
+            return this.TableScope;
         }
     }
 }

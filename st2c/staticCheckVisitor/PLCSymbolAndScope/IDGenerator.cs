@@ -38,5 +38,10 @@ namespace st2c.staticCheckVisitor.PLCSymbolAndScope
         public int NewScopeId() => scopeId++;
         public int NewTypeId() => typeId++;
         public int NewTempId() => tempVarId++;
+
+        internal static IDGenerator GetIDGenerator()
+        {
+            return Instance;
+        }
     }
 }

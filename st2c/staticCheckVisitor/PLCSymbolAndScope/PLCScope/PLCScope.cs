@@ -1,4 +1,5 @@
 ﻿using st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbols;
+using st2c.staticCheckVisitor.PLCSymbolAndScope.PLCSymbolTables;
 using System;
 using System;
 using System.Collections.Generic;
