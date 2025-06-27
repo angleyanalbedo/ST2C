@@ -35,6 +35,7 @@ namespace st2c
                     pLCSTPARSERParser.RemoveErrorListeners();
                     pLCSTPARSERParser.AddErrorListener(new ConsoleErrorListener<IToken>());
                     var tree = pLCSTPARSERParser.startpoint();
+                    // 输出解析树
                     if (tree != null)
                     {
                         Console.WriteLine("Parsing completed successfully.");
