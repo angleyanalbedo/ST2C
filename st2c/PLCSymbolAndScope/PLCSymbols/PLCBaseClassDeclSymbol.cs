@@ -19,10 +19,10 @@ namespace st2c.PLCSymbolAndScope.PLCSymbols
     {
         public List<PLCInterfaceDeclSymbol> Interfaces { get; } = new List<PLCInterfaceDeclSymbol>();
         public List<PLCNamespaceDeclSymbol> Namespaces { get; } = new List<PLCNamespaceDeclSymbol>();
-        private readonly Dictionary<string, PLCVariable> _variableMap = new Dictionary<string, PLCVariable>();
-        private readonly List<PLCMethodDeclSymbol> _abstractMethods = new List<PLCMethodDeclSymbol>();
-        private readonly List<PLCMethodDeclSymbol> _methodMap = new List<PLCMethodDeclSymbol>();
-        protected PLCBaseClassDeclSymbol _baseClass;
+        private readonly Dictionary<string, PLCVariable> VariableMap = new Dictionary<string, PLCVariable>();
+        private readonly List<PLCMethodDeclSymbol> AbstractMethods = new List<PLCMethodDeclSymbol>();
+        private readonly List<PLCMethodDeclSymbol> MethodMap = new List<PLCMethodDeclSymbol>();
+        protected PLCBaseClassDeclSymbol BaseClass;
 
         public PLCModifierEnum.ClassModifier ClassModifier { get; set; }
 
@@ -40,12 +40,12 @@ namespace st2c.PLCSymbolAndScope.PLCSymbols
 
         public PLCBaseClassDeclSymbol GetBaseClass()
         {
-            return _baseClass;
+            return BaseClass;
         }
 
         public void SetBaseClass(PLCBaseClassDeclSymbol baseClass)
         {
-            _baseClass = baseClass;
+            BaseClass = baseClass;
         }
 
         public void SetClassModifier(string classModifier)
@@ -60,7 +60,7 @@ namespace st2c.PLCSymbolAndScope.PLCSymbols
 
         public PLCBaseFUNDeclSymbol FindMethod(string name)
         {
-            foreach (var methodDeclSymbol in _methodMap)
+            foreach (var methodDeclSymbol in MethodMap)
             {
                 if (name.Equals(methodDeclSymbol.Name))
                 {
@@ -146,17 +146,17 @@ namespace st2c.PLCSymbolAndScope.PLCSymbols
 
         public Dictionary<string, PLCVariable> GetVariableMap()
         {
-            return _variableMap;
+            return VariableMap;
         }
 
         public PLCVariable GetVariable(string name)
         {
-            return _variableMap.ContainsKey(name) ? _variableMap[name] : null;
+            return VariableMap.ContainsKey(name) ? VariableMap[name] : null;
         }
 
         public void AddVariable(PLCVariable var)
         {
-            _variableMap[var.Name] = var;
+            VariableMap[var.Name] = var;
         }
 
         public void AddAllVariable(Collection<PLCVariable> vars)
@@ -174,38 +174,38 @@ namespace st2c.PLCSymbolAndScope.PLCSymbols
 
         public void AddAbstractMethod(PLCMethodDeclSymbol method)
         {
-            _abstractMethods.Add(method);
+            AbstractMethods.Add(method);
         }
 
         public void AddAllAbsMethods(List<PLCMethodDeclSymbol> methods)
         {
-            _abstractMethods.AddRange(methods);
+            AbstractMethods.AddRange(methods);
         }
 
         public List<PLCMethodDeclSymbol> GetAbstractMethods()
         {
-            return _abstractMethods;
+            return AbstractMethods;
         }
 
         public void AddMethod(PLCMethodDeclSymbol method)
         {
-            _methodMap.Add(method);
+            MethodMap.Add(method);
         }
 
         public void AddAllMethods(List<PLCMethodDeclSymbol> methods)
         {
-            _methodMap.AddRange(methods);
+            MethodMap.AddRange(methods);
         }
 
         public List<PLCMethodDeclSymbol> GetMethods()
         {
-            return _methodMap;
+            return MethodMap;
         }
 
         public override string ToString()
         {
-            return $"PLCBaseClassDeclSymbol{{Interfaces={Interfaces}, Namespaces={Namespaces}, AbstractMethods={_abstractMethods}, " +
-                   $"BaseClass={_baseClass}, ClassModifier={ClassModifier}, InitVar='{InitVar}', VarSort={VarSort}, " +
+            return $"PLCBaseClassDeclSymbol{{Interfaces={Interfaces}, Namespaces={Namespaces}, AbstractMethods={AbstractMethods}, " +
+                   $"BaseClass={BaseClass}, ClassModifier={ClassModifier}, InitVar='{InitVar}', VarSort={VarSort}, " +
                    $"SymbolId={SymbolId}, TypeId={TypeId}, Name='{Name}', RowNum={RowNum}, ColumnNum={ColumnNum}, " +
                    $"Sort={Sort}, RuntimeName='{RuntimeName}', RuntimeTypeName='{RuntimeTypeName}'}}";
         }
@@ -229,13 +229,13 @@ namespace st2c.PLCSymbolAndScope.PLCSymbols
             jsonObject["namespaces"] = namespaceDeclArray;
 
             var methodDeclArray = new JArray();
-            foreach (var plcMethodDeclSymbol in _abstractMethods)
+            foreach (var plcMethodDeclSymbol in AbstractMethods)
             {
                 methodDeclArray.Add(plcMethodDeclSymbol.ToStringJson());
             }
             jsonObject["abstractMethods"] = methodDeclArray;
 
-            jsonObject["baseClass"] = _baseClass != null ? _baseClass.ToStringJson() : null;
+            jsonObject["baseClass"] = BaseClass != null ? BaseClass.ToStringJson() : null;
             jsonObject["classModifier"] = ClassModifier != null ? ClassModifier.ToString() : null;
             jsonObject["initVar"] = InitVar;
             jsonObject["varSort"] = VarSort != null ? VarSort.ToString() : null;

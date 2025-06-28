@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="PLCTrans tor\" />
+    <Folder Include="PLCTranslator\" />
   </ItemGroup>
 
 </Project>

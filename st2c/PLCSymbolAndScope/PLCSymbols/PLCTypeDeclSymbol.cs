@@ -55,11 +55,38 @@ namespace st2c.PLCSymbolAndScope.PLCSymbols
         // 类型的初始值
         public string InitVar { get; set; } = "";
 
+        public string GetInitVar()
+        {
+            return InitVar;
+        }
+        public void SetInitVar(string initVar)
+        {
+            InitVar = initVar;
+        }
+
         // 类型对应的变量的分类,默认确定
         public PLCModifierEnum.Sort VarSort { get; set; }
 
+        public PLCModifierEnum.Sort GetVarSort()
+        {
+            return VarSort;
+        }
+        public void SetVarSort(PLCModifierEnum.Sort varSort)
+        {
+            VarSort = varSort;
+        }
+
         // 存储可进行数学运算的类型
         private HashSet<int> CalculableSet { get; set; } = new HashSet<int>();
+
+        public HashSet<int> GetCalculableSet()
+        {
+            return CalculableSet;
+        }
+        public void SetCalculableSet(HashSet<int> calculableSet)
+        {
+            CalculableSet = calculableSet;
+        }
 
         // 检查是否可进行数字运算(+-*/)
         public bool CheckCanMathCalcWith(int typeId)
@@ -76,6 +103,15 @@ namespace st2c.PLCSymbolAndScope.PLCSymbols
         // 存储可进行大小比较的类型id
         private HashSet<int> ComparableSet { get; set; } = new HashSet<int>();
 
+        public HashSet<int> GetComparableSet()
+        {
+            return ComparableSet;
+        }
+        public void SetComparableSet(HashSet<int> comparableSet)
+        {
+            ComparableSet = comparableSet;
+        }
+
         // 检查是否可进行大小比较
         public bool CheckCanCompareWith(int typeId)
         {
@@ -90,6 +126,14 @@ namespace st2c.PLCSymbolAndScope.PLCSymbols
 
         // 存储可进行判等的类型id
         private HashSet<int> EqualitySet { get; set; } = new HashSet<int>();
+        public HashSet<int> GetEqualitySet()
+        {
+            return EqualitySet;
+        }
+        public void SetEqualitySet(HashSet<int> equalitySet)
+        {
+            EqualitySet = equalitySet;
+        }
 
         // 检查是否可进行判等
         public bool CheckCanEqualWith(int typeId)
@@ -105,6 +149,14 @@ namespace st2c.PLCSymbolAndScope.PLCSymbols
 
         // 存储可进行赋值的类型id
         private HashSet<int> AssignableSet { get; set; } = new HashSet<int>();
+        public HashSet<int> GetAssignableSet()
+        {
+            return AssignableSet;
+        }
+        public void SetAssignableSet(HashSet<int> assignableSet)
+        {
+            AssignableSet = assignableSet;
+        }
 
         // 检查是否可进行赋值
         public bool CheckCanAssignWith(int typeId)
