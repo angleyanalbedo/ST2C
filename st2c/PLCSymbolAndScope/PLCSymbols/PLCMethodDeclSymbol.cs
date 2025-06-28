@@ -17,7 +17,7 @@ namespace st2c.PLCSymbolAndScope.PLCSymbols
 
         public void SetMethodModifier(string methodModifier)
         {
-            MethodModifier = PLCModifierEnum.ClassModifier.Parse(methodModifier);
+            MethodModifier = Enum.Parse<PLCModifierEnum.ClassModifier>(methodModifier);
         }
 
         public PLCModifierEnum.ClassModifier GetMethodModifier()
@@ -35,7 +35,7 @@ namespace st2c.PLCSymbolAndScope.PLCSymbols
 
         public void SetAccessModifier(string accessModifier)
         {
-            AccessModifier = PLCModifierEnum.AccessModifier.Parse(accessModifier);
+            AccessModifier = Enum.Parse<PLCModifierEnum.AccessModifier>(accessModifier);
         }
 
         public bool IsIfOverride()
@@ -96,7 +96,7 @@ namespace st2c.PLCSymbolAndScope.PLCSymbols
                    $"}}";
         }
 
-        public JToken ToStringJson()
+        public new JToken ToStringJson()
         {
             JObject jsonObject = new JObject();
             jsonObject["methodModifier"] = MethodModifier.ToString();
@@ -132,21 +132,7 @@ namespace st2c.PLCSymbolAndScope.PLCSymbols
             return jsonSymbol;
         }
 
-        // 假设的属性
-        public int ReturnTypeId { get; set; }
-        public PLCModifierEnum.VarSort? ReturnVarSort { get; set; }
-        public List<PLCNamespaceDeclSymbol> Namespaces { get; set; } = new List<PLCNamespaceDeclSymbol>();
-        public string InitVar { get; set; }
-        public PLCModifierEnum.VarSort? VarSort { get; set; }
-        public int SymbolId { get; set; }
-        public int TypeId { get; set; }
-        public string Name { get; set; }
-        public int RowNum { get; set; }
-        public int ColumnNum { get; set; }
-        public PLCModifierEnum.Sort? Sort { get; set; }
-        public string RuntimeName { get; set; }
-        public string RuntimeTypeName { get; set; }
-        public List<PLCVariable> AccessVars { get; set; } = new List<PLCVariable>();
+       
     }
 
     

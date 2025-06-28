@@ -67,7 +67,7 @@ namespace st2c.PLCSymbolAndScope.PLCSymbols
                    $"}}";
         }
 
-        public JToken ToStringJson()
+        public new JToken ToStringJson()
         {
             JObject jsonObject = new JObject();
             jsonObject["initVar"] = InitVar;
@@ -93,15 +93,5 @@ namespace st2c.PLCSymbolAndScope.PLCSymbols
             return jsonSymbol;
         }
 
-        public PLCModifierEnum.Sort? VarSort { get; set; }
-        public string InitVar { get; set; }
-        public int SymbolId { get; set; }
-        public int TypeId { get; set; }
-        public string Name { get; set; }
-        public int RowNum { get; set; }
-        public int ColumnNum { get; set; }
-        public PLCModifierEnum.Sort? Sort { get; set; }
-        public string RuntimeName { get; set; }
-        public string RuntimeTypeName { get; set; }
     }
 }

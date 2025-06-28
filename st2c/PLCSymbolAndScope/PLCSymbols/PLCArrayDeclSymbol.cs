@@ -36,7 +36,7 @@ namespace st2c.PLCSymbolAndScope.PLCSymbols
             ElementTypeId = resource.TypeId;
         }
 
-        public  void SetTypeId(int typeId)
+        public  new void SetTypeId(int typeId)
         {
             base.SetTypeId(typeId);
             RuntimeName = $"PLC_Array_Value<{typeId}>";

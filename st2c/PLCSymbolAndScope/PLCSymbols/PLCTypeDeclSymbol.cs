@@ -46,7 +46,7 @@ namespace st2c.PLCSymbolAndScope.PLCSymbols
             LocalSymbolTable = PLCScopeStack.GlobalSymbolTable;
         }
 
-        public void SetTypeId(int typeId)
+        public new void SetTypeId(int typeId)
         {
             base.SetTypeId(typeId);
             AssignableSet.Add(typeId);
@@ -136,7 +136,7 @@ namespace st2c.PLCSymbolAndScope.PLCSymbols
             return str.ToString();
         }
 
-        public JToken ToStringJson()
+        public new JToken ToStringJson()
         {
             var jsonObject = new JObject();
 

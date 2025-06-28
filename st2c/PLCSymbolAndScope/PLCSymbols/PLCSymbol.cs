@@ -4,8 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
-using st2c.PLCSymbolAndScope;
-using st2c.PLCSymbolAndScope.PLCScope;
+using st2c.PLCSymbolAndScope.PLCScopes;
 using st2c.PLCSymbolAndScope.PLCSymbolTables;
 
 namespace st2c.PLCSymbolAndScope.PLCSymbols
@@ -16,7 +15,7 @@ namespace st2c.PLCSymbolAndScope.PLCSymbols
     {
         // 每个符号唯一的ID 在构造方法中自动生成
         public int SymbolId { get; set; }
-
+        
         // 符号的类型标识符
         public int TypeId { get; set; }
 
@@ -107,14 +106,97 @@ namespace st2c.PLCSymbolAndScope.PLCSymbols
                    $"runtimeName='{RuntimeName}', runtimeTypeName='{RuntimeTypeName}'}}";
         }
 
+        public int GetSymbolId()
+        {
+            return SymbolId;
+        }
+
+        public void SetSymbolId(int symbolId)
+        {
+            SymbolId = symbolId;
+        }
+
+        public int GetTypeId()
+        {
+            return TypeId;
+        }
+
         public void SetTypeId(int typeId)
         {
             TypeId = typeId;
         }
 
-        internal int GetSymbolId()
+        public string GetName()
         {
-            return SymbolId;
+            return Name;
+        }
+
+        public void SetName(string name)
+        {
+            Name = name;
+        }
+
+        public int GetRowNum()
+        {
+            return RowNum;
+        }
+
+        public void SetRowNum(int rowNum)
+        {
+            RowNum = rowNum;
+        }
+
+        public int GetColumnNum()
+        {
+            return ColumnNum;
+        }
+
+        public void SetColumnNum(int columnNum)
+        {
+            ColumnNum = columnNum;
+        }
+
+        public PLCScope GetLocalScope()
+        {
+            return LocalScope;
+        }
+
+        public void SetLocalScope(PLCScope localScope)
+        {
+            LocalScope = localScope;
+        }
+
+        public PLCSymbolTable GetLocalSymbolTable()
+        {
+            return LocalSymbolTable;
+        }
+
+        public void SetLocalSymbolTable(PLCSymbolTable localSymbolTable)
+        {
+            LocalSymbolTable = localSymbolTable;
+        }
+
+       
+
+
+        public string GetRuntimeName()
+        {
+            return RuntimeName;
+        }
+
+        public void SetRuntimeName(string runtimeName)
+        {
+            RuntimeName = runtimeName;
+        }
+
+        public string GetRuntimeTypeName()
+        {
+            return RuntimeTypeName;
+        }
+
+        public void SetRuntimeTypeName(string runtimeTypeName)
+        {
+            RuntimeTypeName = runtimeTypeName;
         }
     }
 }

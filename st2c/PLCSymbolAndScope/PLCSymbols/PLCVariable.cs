@@ -150,7 +150,7 @@ namespace st2c.PLCSymbolAndScope.PLCSymbols
                    $"}}";
         }
 
-        public JToken ToStringJson()
+        public new JToken ToStringJson()
         {
             JObject jsonObject = new JObject();
 
@@ -173,10 +173,6 @@ namespace st2c.PLCSymbolAndScope.PLCSymbols
             return jsonSymbol;
         }
 
-        internal string GetName()
-        {
-            return Name;
-        }
     }
 
    
