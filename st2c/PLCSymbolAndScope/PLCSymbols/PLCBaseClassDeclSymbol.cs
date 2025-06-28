@@ -1,6 +1,9 @@
 ﻿using Newtonsoft.Json.Linq;
+using st2c.PLCException;
+using st2c.PLCSymbolAndScope.PLCSymbolTables;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,163 +12,231 @@ using static st2c.PLCSymbolAndScope.PLCSymbols.PLCModifierEnum;
 
 namespace st2c.PLCSymbolAndScope.PLCSymbols
 {
-    // 枚举量定义时也会引入一个作用域
-    public class PLCEnumDeclSymbol : PLCImportScopeTypeDeclType
+
+   
+
+    public class PLCBaseClassDeclSymbol : PLCImportScopeTypeDeclType, AbstractMethod, UsingNamespace, DeclareVariable, DeclareMethod
     {
-        // 枚举常量的类型id
-        private int enumConstTypeId;
+        public List<PLCInterfaceDeclSymbol> Interfaces { get; } = new List<PLCInterfaceDeclSymbol>();
+        public List<PLCNamespaceDeclSymbol> Namespaces { get; } = new List<PLCNamespaceDeclSymbol>();
+        private readonly Dictionary<string, PLCVariable> _variableMap = new Dictionary<string, PLCVariable>();
+        private readonly List<PLCMethodDeclSymbol> _abstractMethods = new List<PLCMethodDeclSymbol>();
+        private readonly List<PLCMethodDeclSymbol> _methodMap = new List<PLCMethodDeclSymbol>();
+        protected PLCBaseClassDeclSymbol _baseClass;
 
-        public int GetEnumConstTypeId()
+        public PLCModifierEnum.ClassModifier ClassModifier { get; set; }
+
+        public PLCBaseClassDeclSymbol(PLCBaseClassDeclSymbol resource) : base(resource)
         {
-            return enumConstTypeId;
         }
 
-        public void SetEnumConstTypeId(int enumConstTypeId)
+        public PLCBaseClassDeclSymbol() : base()
         {
-            this.enumConstTypeId = enumConstTypeId;
         }
 
-        // 枚举类型的内部常量
-        private List<PLCVariable> enumValues = new List<PLCVariable>();
-
-        public List<PLCVariable> GetEnumValues()
+        public PLCBaseClassDeclSymbol(string name, int rowNum) : base(name, rowNum)
         {
-            return enumValues;
         }
 
-        public void SetEnumValues(List<PLCVariable> enumValues)
+        public PLCBaseClassDeclSymbol GetBaseClass()
         {
-            this.enumValues = enumValues;
+            return _baseClass;
         }
 
-        public void AddEnumValue(PLCVariable enumValue)
+        public void SetBaseClass(PLCBaseClassDeclSymbol baseClass)
         {
-            enumValues.Add(enumValue);
+            _baseClass = baseClass;
         }
 
-        // 返回枚举类型内的枚举常量
-        public PLCVariable FindEnumValue(string name)
+        public void SetClassModifier(string classModifier)
         {
-            foreach (PLCVariable enumValue in enumValues)
+            ClassModifier = (PLCModifierEnum.ClassModifier)Enum.Parse(typeof(PLCModifierEnum.ClassModifier), classModifier);
+        }
+
+        public void AddInterface(PLCInterfaceDeclSymbol interfaz)
+        {
+            Interfaces.Add(interfaz);
+        }
+
+        public PLCBaseFUNDeclSymbol FindMethod(string name)
+        {
+            foreach (var methodDeclSymbol in _methodMap)
             {
-                if (name.Equals(enumValue.GetName()))
+                if (name.Equals(methodDeclSymbol.Name))
                 {
-                    return enumValue;
+                    return methodDeclSymbol;
                 }
             }
             return null;
         }
 
-        // 默认的枚举常量
-        private PLCVariable initEnumVar;
-
-        public PLCVariable GetInitEnumVar()
+        public PLCBaseFUNDeclSymbol FindMethod(string name, List<PLCVariable> parameters)
         {
-            return initEnumVar;
+            var paramsNameList = new List<string>();
+            foreach (var param in parameters)
+            {
+                paramsNameList.Add(param.Name);
+            }
+
+            var sameNamedMethods = ImportSymbolTable.FindSameNamedSymbol(name);
+            foreach (var method in sameNamedMethods)
+            {
+                if (method.GetSort() != PLCModifierEnum.Sort.METHOD_DECL)
+                {
+                    continue;
+                }
+
+                var function = (PLCBaseFUNDeclSymbol)method;
+
+                bool flag = false;
+                foreach (var param in parameters)
+                {
+                    string paramName = param.Name;
+                    if (paramName == null)
+                    {
+                        throw new PLCSemanticException("不支持不正规调用");
+                    }
+
+                    var accessVar = function.GetAccessVar(paramName);
+                    if (accessVar == null)
+                    {
+                        flag = true;
+                        break;
+                    }
+
+                    var paramSection = param.VarSections;
+                    if (accessVar.VarSections != paramSection)
+                    {
+                        flag = true;
+                        break;
+                    }
+
+                    var varType = PLCTotalSymbolTable.GetTypeByTypeID(accessVar.TypeId);
+                    if (!varType.CheckCanAssignWith(param.TypeId))
+                    {
+                        flag = true;
+                        break;
+                    }
+                }
+
+                if (flag)
+                {
+                    continue;
+                }
+
+                flag = true;
+                var accessVars = function.GetAccessVars();
+                foreach (var accessVar in accessVars)
+                {
+                    string accessVarName = accessVar.Name;
+                    if (!paramsNameList.Contains(accessVarName) && accessVar.GetAssignVar() == null)
+                    {
+                        flag = false;
+                        break;
+                    }
+                }
+
+                if (flag)
+                {
+                    return function;
+                }
+            }
+            return null;
         }
 
-        public void SetInitEnumVar(PLCVariable initEnumVar)
+        public Dictionary<string, PLCVariable> GetVariableMap()
         {
-            this.initEnumVar = initEnumVar;
+            return _variableMap;
         }
 
-        public List<string> GetEnumElemName()
+        public PLCVariable GetVariable(string name)
         {
-            return enumElemName;
+            return _variableMap.ContainsKey(name) ? _variableMap[name] : null;
         }
 
-        public void SetEnumElemName(List<string> enumElemName)
+        public void AddVariable(PLCVariable var)
         {
-            this.enumElemName = enumElemName;
+            _variableMap[var.Name] = var;
         }
 
-        public void AddEnumElemName(string name)
+        public void AddAllVariable(Collection<PLCVariable> vars)
         {
-            enumElemName.Add(name);
+            foreach (var var in vars)
+            {
+                AddVariable(var);
+            }
         }
 
-        // 枚举常量列表
-        public List<string> enumElemName = new List<string>();
-
-        // 枚举常量的sort
-        public Sort enumConstSort;
-
-        public Sort GetEnumConstSort()
+        public void AddNameSpace(PLCNamespaceDeclSymbol namespaceDeclSymbol)
         {
-            return enumConstSort;
+            Namespaces.Add(namespaceDeclSymbol);
         }
 
-        public PLCEnumDeclSymbol() : base()
+        public void AddAbstractMethod(PLCMethodDeclSymbol method)
         {
-            Sort = Sort.ENUM_DECL;
-            VarSort = Sort.ENUM;
+            _abstractMethods.Add(method);
         }
 
-        public PLCEnumDeclSymbol(string name, int rowNum) : base(name, rowNum)
+        public void AddAllAbsMethods(List<PLCMethodDeclSymbol> methods)
         {
-            Sort = Sort.ENUM_DECL;
-            VarSort = Sort.ENUM;
+            _abstractMethods.AddRange(methods);
         }
 
-        public PLCEnumDeclSymbol(PLCEnumDeclSymbol resource) : base(resource)
+        public List<PLCMethodDeclSymbol> GetAbstractMethods()
         {
+            return _abstractMethods;
         }
 
-        public  void SetTypeId(int typeId)
+        public void AddMethod(PLCMethodDeclSymbol method)
         {
-            base.SetTypeId(typeId);
-            this.SetRuntimeName("PLC_Enum_Value<" + typeId + ">");
+            _methodMap.Add(method);
         }
 
-        private void SetRuntimeName(string v)
+        public void AddAllMethods(List<PLCMethodDeclSymbol> methods)
         {
-            this.RuntimeName = v;
+            _methodMap.AddRange(methods);
+        }
+
+        public List<PLCMethodDeclSymbol> GetMethods()
+        {
+            return _methodMap;
         }
 
         public override string ToString()
         {
-            return $"PLCEnumDeclSymbol{{" +
-                   $"enumConstTypeId={enumConstTypeId}, " +
-                   $"enumValues={string.Join(", ", enumValues)}, " +
-                   $"initEnumVar={initEnumVar}, " +
-                   $"enumElemName={string.Join(", ", enumElemName)}, " +
-                   $"enumConstSort={enumConstSort}, " +
-                   $"initVar='{InitVar}', " +
-                   $"varSort={VarSort}, " +
-                   $"symbolId={SymbolId}, " +
-                   $"typeId={TypeId}, " +
-                   $"name='{Name}', " +
-                   $"rowNum={RowNum}, " +
-                   $"columnNum={ColumnNum}, " +
-                   $"sort={Sort}, " +
-                   $"runtimeName='{RuntimeName}', " +
-                   $"runtimeTypeName='{RuntimeTypeName}'" +
-                   $"}}";
+            return $"PLCBaseClassDeclSymbol{{Interfaces={Interfaces}, Namespaces={Namespaces}, AbstractMethods={_abstractMethods}, " +
+                   $"BaseClass={_baseClass}, ClassModifier={ClassModifier}, InitVar='{InitVar}', VarSort={VarSort}, " +
+                   $"SymbolId={SymbolId}, TypeId={TypeId}, Name='{Name}', RowNum={RowNum}, ColumnNum={ColumnNum}, " +
+                   $"Sort={Sort}, RuntimeName='{RuntimeName}', RuntimeTypeName='{RuntimeTypeName}'}}";
         }
 
-        public JToken ToStringJson()
+        public new JObject ToStringJson()
         {
-            JObject jsonObject = new JObject();
-            jsonObject["enumConstTypeId"] = enumConstTypeId;
+            var jsonObject = new JObject();
 
-            JArray jsonArray = new JArray();
-            foreach (PLCVariable plcVariable in enumValues)
+            var interfaceArray = new JArray();
+            foreach (var plcInterfaceDeclSymbol in Interfaces)
             {
-                jsonArray.Add(plcVariable.ToStringJson());
+                interfaceArray.Add(plcInterfaceDeclSymbol.ToStringJson());
             }
-            jsonObject["enumValues"] = jsonArray;
+            jsonObject["interfaces"] = interfaceArray;
 
-            jsonArray = new JArray();
-            jsonObject["initEnumVar"] = initEnumVar != null ? initEnumVar.ToStringJson() : null;
-
-            jsonArray = new JArray();
-            foreach (string enumName in enumElemName)
+            var namespaceDeclArray = new JArray();
+            foreach (var plcNamespaceDeclSymbol in Namespaces)
             {
-                jsonArray.Add(enumName);
+                namespaceDeclArray.Add(plcNamespaceDeclSymbol.ToStringJson());
             }
-            jsonObject["enumElemName"] = jsonArray;
+            jsonObject["namespaces"] = namespaceDeclArray;
 
-            jsonObject["enumConstSort"] = enumConstSort != null ? enumConstSort.ToString() : null;
+            var methodDeclArray = new JArray();
+            foreach (var plcMethodDeclSymbol in _abstractMethods)
+            {
+                methodDeclArray.Add(plcMethodDeclSymbol.ToStringJson());
+            }
+            jsonObject["abstractMethods"] = methodDeclArray;
+
+            jsonObject["baseClass"] = _baseClass != null ? _baseClass.ToStringJson() : null;
+            jsonObject["classModifier"] = ClassModifier != null ? ClassModifier.ToString() : null;
             jsonObject["initVar"] = InitVar;
             jsonObject["varSort"] = VarSort != null ? VarSort.ToString() : null;
             jsonObject["symbolId"] = SymbolId;
@@ -177,9 +248,15 @@ namespace st2c.PLCSymbolAndScope.PLCSymbols
             jsonObject["runtimeName"] = RuntimeName;
             jsonObject["runtimeTypeName"] = RuntimeTypeName;
 
-            JObject jsonSymbol = new JObject();
-            jsonSymbol["PLCEnumDeclSymbol"] = jsonObject;
+            var jsonSymbol = new JObject();
+            jsonSymbol["PLCBaseClassDeclSymbol"] = jsonObject;
             return jsonSymbol;
         }
+
+        public List<PLCNamespaceDeclSymbol> GetNamespaces()
+        {
+            return Namespaces;
+        }
     }
+
 }

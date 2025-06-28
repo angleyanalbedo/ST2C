@@ -11,9 +11,9 @@ namespace st2c.PLCSymbolAndScope.PLCSymbols
     {
         void AddAbstractMethod(PLCMethodDeclSymbol method);
 
-        void AddAllAbsMethods(ArrayList<PLCMethodDeclSymbol> methods);
+        void AddAllAbsMethods(List<PLCMethodDeclSymbol> methods);
 
-        ArrayList<PLCMethodDeclSymbol> GetAbstractMethods();
+        List<PLCMethodDeclSymbol> GetAbstractMethods();
     }
 
 }

@@ -156,7 +156,7 @@ namespace st2c.PLCSymbolAndScope.PLCSymbols
                        $"}}";
             }
 
-            public JToken ToStringJson()
+            public new JToken ToStringJson()
             {
                 var jsonObject = new JObject();
                 jsonObject["returnTypeId"] = ReturnTypeId;

@@ -46,7 +46,7 @@ namespace st2c.PLCSymbolAndScope.PLCSymbols
                    $"runtimeTypeName='{RuntimeTypeName}'}}";
         }
 
-        public JToken ToStringJson()
+        public new JToken ToStringJson()
         {
             var jsonObject = new JObject();
             jsonObject["initVar"] = InitVar;
@@ -75,10 +75,7 @@ namespace st2c.PLCSymbolAndScope.PLCSymbols
             return ImportSymbolTable;
         }
 
-        internal string GetName()
-        {
-            return Name;
-        }
+        
 
         internal void SetImportSymbolTable(PLCSymbolTable table)
         {
@@ -90,9 +87,6 @@ namespace st2c.PLCSymbolAndScope.PLCSymbols
             this.ImportScope = scope;
         }
 
-        internal void SetName(string v)
-        {
-            Name = v;
-        }
+       
     }
 }
