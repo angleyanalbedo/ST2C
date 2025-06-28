@@ -7,13 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace st2c.staticCheckVisitor
+namespace st2c.PLCTranslator
 {
-    public class PLCVisitor
+    internal class PLCTranslatorNew
     {
         private ParseTreeProperty<ArrayList<PLCSymbol>> property;
 
-        public PLCVisitor(ParseTreeProperty<ArrayList<PLCSymbol>> property)
+        public PLCTranslatorNew(ParseTreeProperty<ArrayList<PLCSymbol>> property)
         {
             this.property = property;
         }

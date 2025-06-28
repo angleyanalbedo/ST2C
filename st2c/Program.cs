@@ -1,4 +1,9 @@
 ﻿using Antlr4.Runtime;
+using Antlr4.Runtime.Misc;
+using Antlr4.Runtime.Tree;
+using st2c.PLCSymbolAndScope.PLCSymbols;
+using st2c.PLCTranslator;
+using st2c.staticCheckVisitor;
 
 namespace st2c
 {
@@ -34,12 +39,17 @@ namespace st2c
                     PLCSTPARSERParser pLCSTPARSERParser = new PLCSTPARSERParser(commonTokenStream);
                     pLCSTPARSERParser.RemoveErrorListeners();
                     pLCSTPARSERParser.AddErrorListener(new ConsoleErrorListener<IToken>());
-                    var tree = pLCSTPARSERParser.startpoint();
+                    var parseTree = pLCSTPARSERParser.startpoint();
                     // 输出解析树
-                    if (tree != null)
+                    if (parseTree != null)
                     {
-                        Console.WriteLine("Parsing completed successfully.");
-                        Console.WriteLine(tree.ToStringTree(pLCSTPARSERParser));
+                        ParseTreeProperty<ArrayList<PLCSymbol>> property = new ParseTreeProperty<ArrayList<PLCSymbol>>();
+                        PLCVisitor plcVisitor = new PLCVisitor(property);
+
+                        plcVisitor.visit(parseTree);
+                        PLCTranslatorNew translatorNew = new PLCTranslatorNew(property);
+
+                        translatorNew.visit(parseTree);
                     }
                     else
                     {
