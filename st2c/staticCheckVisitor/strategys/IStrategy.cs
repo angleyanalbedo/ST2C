@@ -12,6 +12,6 @@ namespace st2c.StaticCheckVisitor.strategys
 {
     public interface IStrategy
     {
-        ArrayList<PLCSymbol> invoke(ParserRuleContext parserCtx, PLCVisitor visitor);
+        ArrayList<PLCSymbol> Invoke(ParserRuleContext parserCtx, PLCVisitor visitor);
     }
 }

@@ -14,4 +14,10 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="PLCTranslator\TranslateType\" />
+    <Folder Include="StaticCheckVisitor\strategys\pou_decl\" />
+    <Folder Include="PLCTargetFileOutPut\" />
+  </ItemGroup>
+
 </Project>
