@@ -11,7 +11,7 @@ namespace st2c.PLCTranslator
         private static FileStream targetFile;
         private static StreamWriter outputWriter;
 
-        static TargetFileOutput()
+        static PLCTargetFile()
         {
             try
             {

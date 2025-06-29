@@ -11,18 +11,32 @@ namespace st2c.PLCTargetFileOutPut
     {
         private static FileStream targetFile;
         private static StreamWriter outputWriter;
+        private static String outputPath = "main.cpp"; // 默认路径
 
         static TargetFileOutput()
         {
             try
             {
-                targetFile = new FileStream("main.cpp", FileMode.Create);
+                targetFile = new FileStream(outputPath, FileMode.Create);
                 outputWriter = new StreamWriter(targetFile);
             }
             catch (Exception e)
             {
                 throw new Exception("File initialization failed", e);
             }
+        }
+        public static void SetOutputPath(string path)
+        {
+            if (string.IsNullOrEmpty(path))
+            {
+                throw new ArgumentException("Output path cannot be null or empty.");
+            }
+            outputPath = path;
+            // 关闭之前的文件流
+            CloseBufferAndFileWriter();
+            // 创建新的文件流
+            targetFile = new FileStream(outputPath, FileMode.Create);
+            outputWriter = new StreamWriter(targetFile);
         }
 
         public TargetFileOutput()
