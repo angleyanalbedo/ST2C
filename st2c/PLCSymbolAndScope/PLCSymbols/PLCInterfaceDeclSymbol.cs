@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using Newtonsoft.Json.Linq;
 
-    public class PLCInterfaceDeclSymbol : PLCImportScopeTypeDeclType, AbstractMethod, UsingNamespace
+    public class PLCInterfaceDeclSymbol : PLCImportScopeTypeDeclType, IAbstractMethod, IUsingNamespace
     {
         //接口继承的接口
         public List<PLCInterfaceDeclSymbol> BaseInterfaces { get; } = new List<PLCInterfaceDeclSymbol>();

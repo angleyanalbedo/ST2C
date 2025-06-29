@@ -43,7 +43,7 @@ namespace st2c
                     // 输出解析树
                     if (parseTree != null)
                     {
-                        ParseTreeProperty<ArrayList<PLCSymbol>> property = new ParseTreeProperty<ArrayList<PLCSymbol>>();
+                        ParseTreeProperty<List<PLCSymbol>> property = new ParseTreeProperty<List<PLCSymbol>>();
                         PLCVisitor plcVisitor = new PLCVisitor(property);
 
                         plcVisitor.visit(parseTree);

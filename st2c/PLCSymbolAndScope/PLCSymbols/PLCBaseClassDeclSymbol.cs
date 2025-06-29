@@ -15,7 +15,7 @@ namespace st2c.PLCSymbolAndScope.PLCSymbols
 
    
 
-    public class PLCBaseClassDeclSymbol : PLCImportScopeTypeDeclType, AbstractMethod, UsingNamespace, DeclareVariable, DeclareMethod
+    public class PLCBaseClassDeclSymbol : PLCImportScopeTypeDeclType, IAbstractMethod, IUsingNamespace, DeclareVariable, IDeclareMethod
     {
         public List<PLCInterfaceDeclSymbol> Interfaces { get; } = new List<PLCInterfaceDeclSymbol>();
         public List<PLCNamespaceDeclSymbol> Namespaces { get; } = new List<PLCNamespaceDeclSymbol>();

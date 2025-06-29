@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace st2c.PLCSymbolAndScope.PLCSymbols
 {
-    public interface DeclareMethod
+    public interface IDeclareMethod
     {
         void AddMethod(PLCMethodDeclSymbol method);
 

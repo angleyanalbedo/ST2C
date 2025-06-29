@@ -11,9 +11,9 @@ namespace st2c.PLCTranslator
 {
     internal class PLCTranslatorNew
     {
-        private ParseTreeProperty<ArrayList<PLCSymbol>> property;
+        private ParseTreeProperty<List<PLCSymbol>> property;
 
-        public PLCTranslatorNew(ParseTreeProperty<ArrayList<PLCSymbol>> property)
+        public PLCTranslatorNew(ParseTreeProperty<List<PLCSymbol>> property)
         {
             this.property = property;
         }

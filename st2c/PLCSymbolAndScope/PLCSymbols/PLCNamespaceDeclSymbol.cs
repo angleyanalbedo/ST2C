@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace st2c.PLCSymbolAndScope.PLCSymbols
 {
-    public class PLCNamespaceDeclSymbol : PLCImportScopeTypeDeclType, UsingNamespace
+    public class PLCNamespaceDeclSymbol : PLCImportScopeTypeDeclType, IUsingNamespace
     {
         public PLCNamespaceDeclSymbol()
         {

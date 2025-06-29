@@ -1,5 +1,4 @@
-﻿using Antlr4.Runtime.Misc;
-using Antlr4.Runtime.Tree;
+﻿using Antlr4.Runtime.Tree;
 using st2c.PLCSymbolAndScope.PLCSymbols;
 using System;
 using System.Collections.Generic;
@@ -9,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace st2c.staticCheckVisitor
 {
-    public class PLCVisitor
+    public class PLCVisitor : PLCSTPARSERBaseVisitor<List<PLCSymbol>>
     {
-        private ParseTreeProperty<ArrayList<PLCSymbol>> property;
+        private ParseTreeProperty<List<PLCSymbol>> property;
 
-        public PLCVisitor(ParseTreeProperty<ArrayList<PLCSymbol>> property)
+        public PLCVisitor(ParseTreeProperty<List<PLCSymbol>> property)
         {
             this.property = property;
         }

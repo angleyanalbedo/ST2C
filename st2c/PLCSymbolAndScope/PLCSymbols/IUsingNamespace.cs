@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace st2c.PLCSymbolAndScope.PLCSymbols
 {
-    public interface UsingNamespace
+    public interface IUsingNamespace
     {
         List<PLCNamespaceDeclSymbol> GetNamespaces();
 

@@ -11,7 +11,7 @@ namespace st2c.PLCSymbolAndScope.PLCSymbols
 {
 
 
-    public class PLCBaseFUNDeclSymbol : PLCImportScopeTypeDeclType, UsingNamespace, DeclareVariable
+    public class PLCBaseFUNDeclSymbol : PLCImportScopeTypeDeclType, IUsingNamespace, DeclareVariable
         {
             public PLCBaseFUNDeclSymbol(PLCBaseFUNDeclSymbol resource) : base(resource)
             {
