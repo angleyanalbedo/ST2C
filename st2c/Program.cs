@@ -46,7 +46,7 @@ namespace st2c
                         ParseTreeProperty<List<PLCSymbol>> property = new ParseTreeProperty<List<PLCSymbol>>();
                         PLCVisitor plcVisitor = new PLCVisitor(property);
 
-                        plcVisitor.visit(parseTree);
+                        plcVisitor.Visit(parseTree);
                         PLCTranslatorNew translatorNew = new PLCTranslatorNew(property);
 
                         translatorNew.visit(parseTree);

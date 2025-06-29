@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace st2c.PLCTranslator
 {
-    internal class PLCTranslatorNew
+    public class PLCTranslatorNew
     {
         private ParseTreeProperty<List<PLCSymbol>> property;
 
