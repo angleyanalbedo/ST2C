@@ -8,3 +8,5 @@ st2c/bin
 Runtime/out
 Runtime/.idea
 Runtime/.vs
+Runtime/build
+Runtime/CMakeSettings.json

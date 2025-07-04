@@ -64,4 +64,7 @@ ADD_LIBRARY(
         MemoryManager/MemoryManager.cpp
         MemoryManager/MemoryManager.h TCI/TCI.h
 
-        PLC_SUBTYPE/PLC_Subtype_Type.hpp PLC_INTERFACE/PLC_INTERFACE.cpp PLC_INTERFACE/PLC_INTERFACE.h varMap/varMap.cpp varMap/varMap.h PLC_Method/PLC_Method.cpp PLC_Method/PLC_Method.h)
+        PLC_SUBTYPE/PLC_Subtype_Type.hpp PLC_INTERFACE/PLC_INTERFACE.cpp
+        PLC_INTERFACE/PLC_INTERFACE.h varMap/varMap.cpp varMap/varMap.h 
+        PLC_Method/PLC_Method.cpp PLC_Method/PLC_Method.h 
+        Debug.h)
