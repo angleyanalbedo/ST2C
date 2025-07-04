@@ -5,3 +5,6 @@
 /.vs
 /st2c/obj
 st2c/bin
+Runtime/out
+Runtime/.idea
+Runtime/.vs
