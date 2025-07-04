@@ -1,12 +1,4 @@
-﻿################################################################################
-# 此 .gitignore 文件已由 Microsoft(R) Visual Studio 自动创建。
-################################################################################
-
-/.vs
-/st2c/obj
-st2c/bin
+﻿.vs
 Runtime/out
-Runtime/.idea
-Runtime/.vs
 Runtime/build
 Runtime/CMakeSettings.json
