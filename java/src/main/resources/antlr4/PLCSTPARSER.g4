@@ -717,7 +717,7 @@ pointer_adr
                 : 'ADR' '('
                   ( symbolic_variable
                   | fb_instance_name
-                  | class_instance_name )
+                  | instance_name )
                   ')'
                 ;
 pointer_dref
