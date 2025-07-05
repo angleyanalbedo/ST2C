@@ -386,6 +386,7 @@ type_decl
             | struct_type_decl
             | str_type_decl
             | ref_type_decl
+            | pointer_type_decl // 添加指针类型
             | derived_type_decl     //Alter_Loc
             ;
 
@@ -408,6 +409,7 @@ derived_spec_init
             | array_type_decl
             | struct_type_decl
             | ref_type_decl
+            | pointer_type_decl
             | str_type_decl
             ;
 
@@ -1835,7 +1837,9 @@ stmt
 assign_stmt
                 : ( variable ':' '=' expression )
                 | ref_assign
+                | pointer_assign
                 | assignment_attempt
+                | pointer_assigment_attempt
                 ;
 
 assignment_attempt
@@ -1848,6 +1852,15 @@ assignment_attempt
                   )
                 ;
 
+pointer_assigment_attempt
+                :(pointer_name
+                  | pointer_dref
+                  )'?''='
+                  ( pointer_name
+                   | pointer_dref
+                   | pointer_value
+                   )
+                 ;
 
 invocation
                 : ( fb_instance_name
@@ -1880,6 +1893,8 @@ param_assign
                       expression
                   )
                 | ref_assign
+                //TODO
+                // 之后再考虑参数支持指针
                 | ( 'NOT' ? variable_name '=>'
                     variable
                   )
@@ -1972,6 +1987,10 @@ reservedKeyword
                 |'END_STRUCT'
                 |'REF_TO'
                 |'REF'
+                |'POINTER'
+                |'TO'
+                |'ADR'
+                |'DREF'
                 |'THIS'
                 |'VAR_INPUT'
                 |'RETAIN'
