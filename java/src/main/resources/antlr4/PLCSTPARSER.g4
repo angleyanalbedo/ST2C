@@ -406,6 +406,7 @@ data_type_decl
             | struct_type_decl
             | str_type_decl
             | ref_type_decl
+            | pointer_type_decl      //添加指针类型
 //            | derived_type_decl    //Alter_Loc
             ;
 //simple_type_name_identifier : identifier;//修复simple_type_name
@@ -686,6 +687,53 @@ ref_assign
 ref_deref
                 : ref_name '^' +
                 ;
+
+// e用于实现指针操作
+pointer_type_decl:
+                 pointer_type_name
+                ;
+pointer_type_name
+                :
+                identifier ':'
+                pointer_spec_init
+                ;
+pointer_spec_init
+                :pointer_spec
+                (':''=' pointer_value)?
+                ;
+pointer_name    :
+                identifier
+                ;
+
+pointer_spec
+                :'POINTER' 'TO' +
+                data_type_access
+                ;
+pointer_value
+                :pointer_adr
+                |Null
+                ;
+pointer_adr
+                : 'ADR' '('
+                  ( symbolic_variable
+                  | fb_instance_name
+                  | class_instance_name )
+                  ')'
+                ;
+pointer_dref
+                : 'DERF' '('
+                  ( pointer_name
+                  | pointer_value
+                  )
+                ')'
+                 ;
+pointer_assign
+                :pointer_name ':' '='
+                (pointer_name
+                |pointer_value
+                |pointer_dref)
+                ;
+
 // Table 13 - Declaration of variables/Table 14  Initialization of variables
 
 variable        : Direct_variable
@@ -1937,7 +1985,9 @@ assign_stmt
                   //ariable挂树信息 等号左值名称 例 A->B
                 : ( variable ':' '=' expression )   #variableAssignExpression   //SC DONE //expre结点挂树信息 例：*A * *B ...
                 | ref_assign                        #refAssignExpression
+                | pointer_assign                    #pointerAssign
                 | assignment_attempt                #assignmentAttempt  //赋值尝试（暂时搁置的功能 不在当前version计划）
+                | pointer_assigment_attempt         #pointerAssignAttempt
                 ;
 
 assignment_attempt
@@ -1949,7 +1999,16 @@ assignment_attempt
                   | ref_value
                   )
                 ;
-
+// 指针的尝试赋值首先写着但不实现
+pointer_assigment_attempt
+                :(pointer_name
+                  | pointer_dref
+                  )'?''='
+                  ( pointer_name
+                   | pointer_dref
+                   | pointer_value
+                   )
+                 ;
 
 //invocation
 //                : ( fb_instance_name
@@ -2142,6 +2201,10 @@ reservedKeyword
                 |'END_STRUCT'
                 |'REF_TO'
                 |'REF'
+                |'POINTER'
+                |'TO'
+                |'ADR'
+                |'DREF'
                 |'THIS'
                 |'VAR_INPUT'
                 |'RETAIN'
