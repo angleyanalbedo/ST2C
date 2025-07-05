@@ -630,6 +630,53 @@ ref_assign
 ref_deref
                 : ref_name '^' +
                 ;
+// e用于实现指针操作
+pointer_type_decl:
+                 pointer_type_name
+                ;
+pointer_type_name
+                :
+                identifier ':'
+                pointer_spec_init
+                ;
+pointer_spec_init
+                :pointer_spec
+                (':''=' pointer_value)?
+                ;
+pointer_name    :
+                identifier
+                ;
+
+pointer_spec
+                :'POINTER' 'TO' +
+                data_type_access
+                ;
+pointer_value
+                :pointer_adr
+                |Null
+                ;
+pointer_adr
+                : 'ADR' '('
+                  ( symbolic_variable
+                  | fb_instance_name
+                  | class_instance_name )
+                  ')'
+                ;
+pointer_dref
+                : 'DERF' '('
+                  ( pointer_name
+                  | pointer_value
+                  )
+                ')'
+                 ;
+pointer_assign
+                :pointer_name ':' '='
+                (pointer_name
+                |pointer_value
+                |pointer_dref)
+                ;
+
+
 // Table 13 - Declaration of variables/Table 14  Initialization of variables
 
 variable        : Direct_variable
