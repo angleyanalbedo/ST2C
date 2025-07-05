@@ -1,4 +1,4 @@
-// Generated from D:/PLCST/PLC_GIT/plcst/PLCST/src/main/resources/antlr4\PLCSTPARSER.g4 by ANTLR 4.10.1
+// Generated from D:/source/Project/ST2C/java/src/main/resources/antlr4/PLCSTPARSER.g4 by ANTLR 4.13.2
 package antlr4;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -10,6 +10,7 @@ import org.antlr.v4.runtime.tree.TerminalNode;
  * which can be extended to create a listener which only needs to handle a subset
  * of the available methods.
  */
+@SuppressWarnings("CheckReturnValue")
 public class PLCSTPARSERBaseListener implements PLCSTPARSERListener {
 	/**
 	 * {@inheritDoc}
@@ -1211,6 +1212,114 @@ public class PLCSTPARSERBaseListener implements PLCSTPARSERListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitRef_deref(PLCSTPARSERParser.Ref_derefContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPointer_type_decl(PLCSTPARSERParser.Pointer_type_declContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPointer_type_decl(PLCSTPARSERParser.Pointer_type_declContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPointer_type_name(PLCSTPARSERParser.Pointer_type_nameContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPointer_type_name(PLCSTPARSERParser.Pointer_type_nameContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPointer_spec_init(PLCSTPARSERParser.Pointer_spec_initContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPointer_spec_init(PLCSTPARSERParser.Pointer_spec_initContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPointer_name(PLCSTPARSERParser.Pointer_nameContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPointer_name(PLCSTPARSERParser.Pointer_nameContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPointer_spec(PLCSTPARSERParser.Pointer_specContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPointer_spec(PLCSTPARSERParser.Pointer_specContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPointer_value(PLCSTPARSERParser.Pointer_valueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPointer_value(PLCSTPARSERParser.Pointer_valueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPointer_adr(PLCSTPARSERParser.Pointer_adrContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPointer_adr(PLCSTPARSERParser.Pointer_adrContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPointer_dref(PLCSTPARSERParser.Pointer_drefContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPointer_dref(PLCSTPARSERParser.Pointer_drefContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPointer_assign(PLCSTPARSERParser.Pointer_assignContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPointer_assign(PLCSTPARSERParser.Pointer_assignContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -3484,6 +3593,18 @@ public class PLCSTPARSERBaseListener implements PLCSTPARSERListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterPointerAssign(PLCSTPARSERParser.PointerAssignContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPointerAssign(PLCSTPARSERParser.PointerAssignContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterAssignmentAttempt(PLCSTPARSERParser.AssignmentAttemptContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -3496,6 +3617,18 @@ public class PLCSTPARSERBaseListener implements PLCSTPARSERListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterPointerAssignAttempt(PLCSTPARSERParser.PointerAssignAttemptContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPointerAssignAttempt(PLCSTPARSERParser.PointerAssignAttemptContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterAssignment_attempt(PLCSTPARSERParser.Assignment_attemptContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -3503,6 +3636,18 @@ public class PLCSTPARSERBaseListener implements PLCSTPARSERListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitAssignment_attempt(PLCSTPARSERParser.Assignment_attemptContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPointer_assigment_attempt(PLCSTPARSERParser.Pointer_assigment_attemptContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPointer_assigment_attempt(PLCSTPARSERParser.Pointer_assigment_attemptContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

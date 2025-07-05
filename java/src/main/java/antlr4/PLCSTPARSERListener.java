@@ -1,4 +1,4 @@
-// Generated from D:/PLCST/PLC_GIT/plcst/PLCST/src/main/resources/antlr4\PLCSTPARSER.g4 by ANTLR 4.10.1
+// Generated from D:/source/Project/ST2C/java/src/main/resources/antlr4/PLCSTPARSER.g4 by ANTLR 4.13.2
 package antlr4;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -1007,6 +1007,96 @@ public interface PLCSTPARSERListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitRef_deref(PLCSTPARSERParser.Ref_derefContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PLCSTPARSERParser#pointer_type_decl}.
+	 * @param ctx the parse tree
+	 */
+	void enterPointer_type_decl(PLCSTPARSERParser.Pointer_type_declContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PLCSTPARSERParser#pointer_type_decl}.
+	 * @param ctx the parse tree
+	 */
+	void exitPointer_type_decl(PLCSTPARSERParser.Pointer_type_declContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PLCSTPARSERParser#pointer_type_name}.
+	 * @param ctx the parse tree
+	 */
+	void enterPointer_type_name(PLCSTPARSERParser.Pointer_type_nameContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PLCSTPARSERParser#pointer_type_name}.
+	 * @param ctx the parse tree
+	 */
+	void exitPointer_type_name(PLCSTPARSERParser.Pointer_type_nameContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PLCSTPARSERParser#pointer_spec_init}.
+	 * @param ctx the parse tree
+	 */
+	void enterPointer_spec_init(PLCSTPARSERParser.Pointer_spec_initContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PLCSTPARSERParser#pointer_spec_init}.
+	 * @param ctx the parse tree
+	 */
+	void exitPointer_spec_init(PLCSTPARSERParser.Pointer_spec_initContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PLCSTPARSERParser#pointer_name}.
+	 * @param ctx the parse tree
+	 */
+	void enterPointer_name(PLCSTPARSERParser.Pointer_nameContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PLCSTPARSERParser#pointer_name}.
+	 * @param ctx the parse tree
+	 */
+	void exitPointer_name(PLCSTPARSERParser.Pointer_nameContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PLCSTPARSERParser#pointer_spec}.
+	 * @param ctx the parse tree
+	 */
+	void enterPointer_spec(PLCSTPARSERParser.Pointer_specContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PLCSTPARSERParser#pointer_spec}.
+	 * @param ctx the parse tree
+	 */
+	void exitPointer_spec(PLCSTPARSERParser.Pointer_specContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PLCSTPARSERParser#pointer_value}.
+	 * @param ctx the parse tree
+	 */
+	void enterPointer_value(PLCSTPARSERParser.Pointer_valueContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PLCSTPARSERParser#pointer_value}.
+	 * @param ctx the parse tree
+	 */
+	void exitPointer_value(PLCSTPARSERParser.Pointer_valueContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PLCSTPARSERParser#pointer_adr}.
+	 * @param ctx the parse tree
+	 */
+	void enterPointer_adr(PLCSTPARSERParser.Pointer_adrContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PLCSTPARSERParser#pointer_adr}.
+	 * @param ctx the parse tree
+	 */
+	void exitPointer_adr(PLCSTPARSERParser.Pointer_adrContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PLCSTPARSERParser#pointer_dref}.
+	 * @param ctx the parse tree
+	 */
+	void enterPointer_dref(PLCSTPARSERParser.Pointer_drefContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PLCSTPARSERParser#pointer_dref}.
+	 * @param ctx the parse tree
+	 */
+	void exitPointer_dref(PLCSTPARSERParser.Pointer_drefContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PLCSTPARSERParser#pointer_assign}.
+	 * @param ctx the parse tree
+	 */
+	void enterPointer_assign(PLCSTPARSERParser.Pointer_assignContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PLCSTPARSERParser#pointer_assign}.
+	 * @param ctx the parse tree
+	 */
+	void exitPointer_assign(PLCSTPARSERParser.Pointer_assignContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PLCSTPARSERParser#variable}.
 	 * @param ctx the parse tree
@@ -2910,6 +3000,18 @@ public interface PLCSTPARSERListener extends ParseTreeListener {
 	 */
 	void exitRefAssignExpression(PLCSTPARSERParser.RefAssignExpressionContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code pointerAssign}
+	 * labeled alternative in {@link PLCSTPARSERParser#assign_stmt}.
+	 * @param ctx the parse tree
+	 */
+	void enterPointerAssign(PLCSTPARSERParser.PointerAssignContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code pointerAssign}
+	 * labeled alternative in {@link PLCSTPARSERParser#assign_stmt}.
+	 * @param ctx the parse tree
+	 */
+	void exitPointerAssign(PLCSTPARSERParser.PointerAssignContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code assignmentAttempt}
 	 * labeled alternative in {@link PLCSTPARSERParser#assign_stmt}.
 	 * @param ctx the parse tree
@@ -2922,6 +3024,18 @@ public interface PLCSTPARSERListener extends ParseTreeListener {
 	 */
 	void exitAssignmentAttempt(PLCSTPARSERParser.AssignmentAttemptContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code pointerAssignAttempt}
+	 * labeled alternative in {@link PLCSTPARSERParser#assign_stmt}.
+	 * @param ctx the parse tree
+	 */
+	void enterPointerAssignAttempt(PLCSTPARSERParser.PointerAssignAttemptContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code pointerAssignAttempt}
+	 * labeled alternative in {@link PLCSTPARSERParser#assign_stmt}.
+	 * @param ctx the parse tree
+	 */
+	void exitPointerAssignAttempt(PLCSTPARSERParser.PointerAssignAttemptContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link PLCSTPARSERParser#assignment_attempt}.
 	 * @param ctx the parse tree
 	 */
@@ -2931,6 +3045,16 @@ public interface PLCSTPARSERListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitAssignment_attempt(PLCSTPARSERParser.Assignment_attemptContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PLCSTPARSERParser#pointer_assigment_attempt}.
+	 * @param ctx the parse tree
+	 */
+	void enterPointer_assigment_attempt(PLCSTPARSERParser.Pointer_assigment_attemptContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PLCSTPARSERParser#pointer_assigment_attempt}.
+	 * @param ctx the parse tree
+	 */
+	void exitPointer_assigment_attempt(PLCSTPARSERParser.Pointer_assigment_attemptContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code invocation1}
 	 * labeled alternative in {@link PLCSTPARSERParser#invocation}.

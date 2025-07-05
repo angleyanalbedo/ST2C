@@ -1,4 +1,4 @@
-// Generated from D:/PLCST/PLC_GIT/plcst/PLCST/src/main/resources/antlr4\PLCSTPARSER.g4 by ANTLR 4.10.1
+// Generated from D:/source/Project/ST2C/java/src/main/resources/antlr4/PLCSTPARSER.g4 by ANTLR 4.13.2
 package antlr4;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -610,6 +610,60 @@ public interface PLCSTPARSERVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitRef_deref(PLCSTPARSERParser.Ref_derefContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PLCSTPARSERParser#pointer_type_decl}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPointer_type_decl(PLCSTPARSERParser.Pointer_type_declContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PLCSTPARSERParser#pointer_type_name}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPointer_type_name(PLCSTPARSERParser.Pointer_type_nameContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PLCSTPARSERParser#pointer_spec_init}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPointer_spec_init(PLCSTPARSERParser.Pointer_spec_initContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PLCSTPARSERParser#pointer_name}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPointer_name(PLCSTPARSERParser.Pointer_nameContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PLCSTPARSERParser#pointer_spec}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPointer_spec(PLCSTPARSERParser.Pointer_specContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PLCSTPARSERParser#pointer_value}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPointer_value(PLCSTPARSERParser.Pointer_valueContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PLCSTPARSERParser#pointer_adr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPointer_adr(PLCSTPARSERParser.Pointer_adrContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PLCSTPARSERParser#pointer_dref}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPointer_dref(PLCSTPARSERParser.Pointer_drefContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PLCSTPARSERParser#pointer_assign}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPointer_assign(PLCSTPARSERParser.Pointer_assignContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PLCSTPARSERParser#variable}.
 	 * @param ctx the parse tree
@@ -1751,6 +1805,13 @@ public interface PLCSTPARSERVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitRefAssignExpression(PLCSTPARSERParser.RefAssignExpressionContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code pointerAssign}
+	 * labeled alternative in {@link PLCSTPARSERParser#assign_stmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPointerAssign(PLCSTPARSERParser.PointerAssignContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code assignmentAttempt}
 	 * labeled alternative in {@link PLCSTPARSERParser#assign_stmt}.
 	 * @param ctx the parse tree
@@ -1758,11 +1819,24 @@ public interface PLCSTPARSERVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAssignmentAttempt(PLCSTPARSERParser.AssignmentAttemptContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code pointerAssignAttempt}
+	 * labeled alternative in {@link PLCSTPARSERParser#assign_stmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPointerAssignAttempt(PLCSTPARSERParser.PointerAssignAttemptContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link PLCSTPARSERParser#assignment_attempt}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitAssignment_attempt(PLCSTPARSERParser.Assignment_attemptContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PLCSTPARSERParser#pointer_assigment_attempt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPointer_assigment_attempt(PLCSTPARSERParser.Pointer_assigment_attemptContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code invocation1}
 	 * labeled alternative in {@link PLCSTPARSERParser#invocation}.
